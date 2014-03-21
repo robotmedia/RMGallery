@@ -13,4 +13,6 @@
 
 @property (nonatomic, readonly) RMGalleryView *galleryView;
 
+@property (nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
+
 @end
