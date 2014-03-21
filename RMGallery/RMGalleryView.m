@@ -172,9 +172,13 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (CGPoint)offsetForIndex:(NSUInteger)index
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:indexPath];
-    const CGPoint offset = attributes.frame.origin;
+    // TODO: Not using layoutAttributesForItemAtIndexPath: because it sometimes returns frame.origin = (0,0) for index > 0. Why?
+
+    const CGFloat width = self.itemSize.width;
+    const CGFloat spacing = self.minimumInteritemSpacing;
+    const CGFloat offsetX = index * (width + spacing);
+    const CGPoint contentOffset = self.collectionView.contentOffset;
+    const CGPoint offset = CGPointMake(offsetX, contentOffset.y);
     return offset;
 }
 
