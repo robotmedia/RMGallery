@@ -52,11 +52,13 @@ static NSString *const CellIdentifier = @"Cell";
         _swipeLeftGestureRecognizer.delegate = _swipeDelegate;
         _swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
         [self addGestureRecognizer:_swipeLeftGestureRecognizer];
+        [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeLeftGestureRecognizer];
 
         _swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
         _swipeRightGestureRecognizer.delegate = _swipeDelegate;
         _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:_swipeRightGestureRecognizer];
+        [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeRightGestureRecognizer];
         
         _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
         _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -244,12 +246,8 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = (RMGalleryCell*)[_galleryView cellForItemAtIndexPath:indexPath];
     UIScrollView *scrollView = cell.scrollView;
     BOOL zooming = scrollView.zoomScale > scrollView.minimumZoomScale;
+    NSLog(@"%d", zooming);
     return !zooming;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return otherGestureRecognizer.view != _galleryView;
 }
 
 @end
