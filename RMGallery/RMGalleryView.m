@@ -21,7 +21,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 @interface RMGalleryGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
 
-- (id)initWithGalleryView:(RMGalleryView*)galleryView;
+- (id)initWithGalleryView:(__weak RMGalleryView*)galleryView;
 
 @end
 
@@ -43,6 +43,7 @@ static NSString *const CellIdentifier = @"Cell";
         self.delegate = self;
         [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
         
+        // Apparently, UICollectionView or one of its subclasses acts as UIGestureRecognizerDelegate. We use this inner class to avoid conflicts.
         _gestureRecognizerDelegate = [[RMGalleryGestureRecognizerDelegate alloc] initWithGalleryView:self];
         
         _swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
