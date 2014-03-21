@@ -10,8 +10,12 @@
 
 @interface RMGalleryCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImage *image;
 @property (nonatomic, readonly) UIActivityIndicatorView *activityIndicatorView;
+
 @property (nonatomic, readonly) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UIImage *image;
+
+- (void)doubleTapAtPoint:(CGPoint)point;
 
 @end

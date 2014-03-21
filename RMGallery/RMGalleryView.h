@@ -18,6 +18,8 @@
 
 @property (nonatomic, readonly) UISwipeGestureRecognizer *swipeRightGestureRecognizer;
 
+@property (nonatomic, readonly) UITapGestureRecognizer *doubleTapGestureRecognizer;
+
 @end
 
 @protocol RMGalleryViewDataSource

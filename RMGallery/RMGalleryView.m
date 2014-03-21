@@ -55,6 +55,11 @@ static NSString *const CellIdentifier = @"Cell";
         _swipeRightGestureRecognizer.delegate = _gestureRecognizerDelegate;
         _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:_swipeRightGestureRecognizer];
+        
+        _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
+        _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+        [self addGestureRecognizer:_doubleTapGestureRecognizer];
+        
     }
     return self;
 }
@@ -78,7 +83,20 @@ static NSString *const CellIdentifier = @"Cell";
     return cell;
 }
 
-#pragma mark Swipes
+#pragma mark Gestures
+
+- (void)doubleTapGesture:(UIGestureRecognizer*)gestureRecognizer
+{
+    const CGPoint point = [gestureRecognizer locationInView:self];
+    NSIndexPath *indexPath = [self indexPathForItemAtPoint:point];
+    if (!indexPath) return;
+    
+    RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
+    
+    const CGPoint cellPoint = [cell convertPoint:point fromView:self];
+    [cell doubleTapAtPoint:cellPoint];
+}
+
 
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
@@ -183,7 +201,6 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 @end
-
 
 @implementation RMGalleryGestureRecognizerDelegate
 {

@@ -99,6 +99,28 @@
     return _imageView.image;
 }
 
+
+#pragma mark Actions
+
+- (void)doubleTapAtPoint:(CGPoint)point
+{
+    const CGPoint imagePoint = [_imageView convertPoint:point fromView:self];
+    CGFloat minimumZoomScale = _scrollView.minimumZoomScale;
+	if (_scrollView.zoomScale > minimumZoomScale)
+    { // Zoom out
+		[_scrollView setZoomScale:minimumZoomScale animated:YES];
+	}
+    else
+    { // Zoom in
+        const CGFloat maximumZoomScale = _scrollView.maximumZoomScale;
+        const CGFloat newZoomScale = MIN(minimumZoomScale * 2, maximumZoomScale);
+        const CGFloat width = self.bounds.size.width / newZoomScale;
+        const CGFloat height = self.bounds.size.height / newZoomScale;
+        const CGRect zoomRect = CGRectMake(imagePoint.x - width / 2, imagePoint.x - height / 2, width, height);
+        [_scrollView zoomToRect:zoomRect animated:YES];
+	}
+}
+
 #pragma mark UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
