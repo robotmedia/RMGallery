@@ -90,36 +90,17 @@ static NSString *const CellIdentifier = @"Cell";
 - (void)doubleTapGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     const CGPoint point = [gestureRecognizer locationInView:self];
-    NSIndexPath *indexPath = [self indexPathForItemAtPoint:point];
-    if (!indexPath) return;
-    
-    RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
-    const CGPoint cellPoint = [cell convertPoint:point fromView:self];
-    [cell doubleTapAtPoint:cellPoint];
+    [self toggleZoomAtPoint:point];
 }
-
 
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
-    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
-    const NSUInteger count = [self.galleryDataSource numberOfImagesInGalleryView:self];
-    const NSUInteger nextIndex = index + 1;
-    if (nextIndex < count)
-    {
-        CGPoint offset = [_imageFlowLayout offsetForIndex:nextIndex];
-        [self setContentOffset:offset animated:YES];
-    }
+    [self showNext];
 }
 
 - (void)swipeRightGesture:(UIGestureRecognizer*)gestureRecognizer
 {
-    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
-    const NSInteger previousIndex = index - 1;
-    if (previousIndex >= 0)
-    {
-        CGPoint offset = [_imageFlowLayout offsetForIndex:previousIndex];
-        [self setContentOffset:offset animated:YES];
-    }
+    [self showPrevious];
 }
 
 #pragma mark Paging
@@ -148,6 +129,41 @@ static NSString *const CellIdentifier = @"Cell";
     const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInGalleryView:self] - 1;
     targetIndex = MIN(targetIndex, maxIndex);
     *targetContentOffset = [_imageFlowLayout offsetForIndex:targetIndex];
+}
+
+#pragma mark Public
+
+- (void)showNext
+{
+    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
+    const NSUInteger count = [self.galleryDataSource numberOfImagesInGalleryView:self];
+    const NSUInteger nextIndex = index + 1;
+    if (nextIndex < count)
+    {
+        CGPoint offset = [_imageFlowLayout offsetForIndex:nextIndex];
+        [self setContentOffset:offset animated:YES];
+    }
+}
+
+- (void)showPrevious
+{
+    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
+    const NSInteger previousIndex = index - 1;
+    if (previousIndex >= 0)
+    {
+        CGPoint offset = [_imageFlowLayout offsetForIndex:previousIndex];
+        [self setContentOffset:offset animated:YES];
+    }
+}
+
+- (void)toggleZoomAtPoint:(CGPoint)point
+{
+    NSIndexPath *indexPath = [self indexPathForItemAtPoint:point];
+    if (!indexPath) return;
+    
+    RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
+    const CGPoint cellPoint = [cell convertPoint:point fromView:self];
+    [cell doubleTapAtPoint:cellPoint];
 }
 
 @end

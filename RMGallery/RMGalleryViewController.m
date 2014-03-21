@@ -49,7 +49,7 @@
     return UIStatusBarAnimationFade;
 }
 
-#pragma mark Actions
+#pragma mark Gestures
 
 - (void)tapGesture:(UIGestureRecognizer*)gestureRecognizer
 {

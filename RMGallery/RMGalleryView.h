@@ -20,6 +20,12 @@
 
 @property (nonatomic, readonly) UITapGestureRecognizer *doubleTapGestureRecognizer;
 
+- (void)showNext;
+
+- (void)showPrevious;
+
+- (void)toggleZoomAtPoint:(CGPoint)point;
+
 @end
 
 @protocol RMGalleryViewDataSource
