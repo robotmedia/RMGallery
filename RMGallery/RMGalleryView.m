@@ -19,7 +19,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 @end
 
-@interface RMGalleryGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
+@interface RMGalleryViewSwipeGRDelegate : NSObject<UIGestureRecognizerDelegate>
 
 - (id)initWithGalleryView:(__weak RMGalleryView*)galleryView;
 
@@ -29,7 +29,7 @@ static NSString *const CellIdentifier = @"Cell";
 {
     NSUInteger _willBeginDraggingIndex;
     RMGalleryViewLayout *_imageFlowLayout;
-    RMGalleryGestureRecognizerDelegate *_gestureRecognizerDelegate;
+    RMGalleryViewSwipeGRDelegate *_swipeDelegate;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -44,15 +44,15 @@ static NSString *const CellIdentifier = @"Cell";
         [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
         
         // Apparently, UICollectionView or one of its subclasses acts as UIGestureRecognizerDelegate. We use this inner class to avoid conflicts.
-        _gestureRecognizerDelegate = [[RMGalleryGestureRecognizerDelegate alloc] initWithGalleryView:self];
+        _swipeDelegate = [[RMGalleryViewSwipeGRDelegate alloc] initWithGalleryView:self];
         
         _swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
-        _swipeLeftGestureRecognizer.delegate = _gestureRecognizerDelegate;
+        _swipeLeftGestureRecognizer.delegate = _swipeDelegate;
         _swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
         [self addGestureRecognizer:_swipeLeftGestureRecognizer];
 
         _swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
-        _swipeRightGestureRecognizer.delegate = _gestureRecognizerDelegate;
+        _swipeRightGestureRecognizer.delegate = _swipeDelegate;
         _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:_swipeRightGestureRecognizer];
         
@@ -92,7 +92,6 @@ static NSString *const CellIdentifier = @"Cell";
     if (!indexPath) return;
     
     RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
-    
     const CGPoint cellPoint = [cell convertPoint:point fromView:self];
     [cell doubleTapAtPoint:cellPoint];
 }
@@ -202,7 +201,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 @end
 
-@implementation RMGalleryGestureRecognizerDelegate
+@implementation RMGalleryViewSwipeGRDelegate
 {
     __weak RMGalleryView *_galleryView;
 }
@@ -214,6 +213,18 @@ static NSString *const CellIdentifier = @"Cell";
         _galleryView = galleryView;
     }
     return self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    const CGPoint point = [touch locationInView:_galleryView];
+    NSIndexPath *indexPath = [_galleryView indexPathForItemAtPoint:point];
+    if (!indexPath) return YES;
+    
+    RMGalleryCell *cell = (RMGalleryCell*)[_galleryView cellForItemAtIndexPath:indexPath];
+    UIScrollView *scrollView = cell.scrollView;
+    BOOL zooming = scrollView.zoomScale > scrollView.minimumZoomScale;
+    return !zooming;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
