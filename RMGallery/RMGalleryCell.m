@@ -27,6 +27,8 @@
     {
         _scrollView = [[RMCenteringScrollView alloc] initWithFrame:self.bounds];
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
         static const CGFloat MaxScale = 1.5;
         _scrollView.maximumZoomScale = MaxScale;

@@ -39,6 +39,8 @@ static NSString *const CellIdentifier = @"Cell";
     self = [super initWithFrame:frame collectionViewLayout:_imageFlowLayout];
     if (self)
     {
+        self.showsHorizontalScrollIndicator = NO;
+        self.showsVerticalScrollIndicator = NO;
         self.dataSource = self;
         self.delegate = self;
         [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
