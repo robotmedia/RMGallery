@@ -8,6 +8,7 @@
 
 #import "RMDemoViewController.h"
 #import "UIImage+RMGalleryDemo.h"
+#import "RMGalleryCell.h"
 
 @interface RMDemoViewController()<RMGalleryViewDataSource>
 
@@ -19,6 +20,9 @@
 {
     [super viewDidLoad];
     self.galleryView.galleryDataSource = self;
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barButtonAction:)];
+    self.toolbarItems = @[barButton];
 }
 
 #pragma mark RMGalleryViewDataSource
@@ -42,5 +46,17 @@
     return 3;
 }
 
+#pragma mark Bar buttons
+
+- (void)barButtonAction:(UIBarButtonItem*)barButtonItem
+{
+    NSArray *cells = [self.galleryView visibleCells];
+    RMGalleryCell *galleryCell = [cells firstObject];
+    UIImage *image = galleryCell.image;
+    if (!image) return;
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
 
 @end

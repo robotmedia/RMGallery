@@ -18,6 +18,7 @@
     
     RMDemoViewController *rootViewController = [RMDemoViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    navigationController.toolbarHidden = NO;
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     return YES;
