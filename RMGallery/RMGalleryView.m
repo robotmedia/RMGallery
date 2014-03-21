@@ -19,13 +19,17 @@ static NSString *const CellIdentifier = @"Cell";
 
 @end
 
-@interface RMGalleryView()<UIGestureRecognizerDelegate>
+@interface RMGalleryGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
+
+- (id)initWithGalleryView:(RMGalleryView*)galleryView;
 
 @end
 
-@implementation RMGalleryView {
-    NSUInteger _willBeingDraggingIndex;
+@implementation RMGalleryView
+{
+    NSUInteger _willBeginDraggingIndex;
     RMGalleryViewLayout *_imageFlowLayout;
+    RMGalleryGestureRecognizerDelegate *_gestureRecognizerDelegate;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -39,15 +43,17 @@ static NSString *const CellIdentifier = @"Cell";
         self.delegate = self;
         [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
         
-        UISwipeGestureRecognizer *swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
-        swipeLeftGestureRecognizer.delegate = self;
-        swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        [self addGestureRecognizer:swipeLeftGestureRecognizer];
+        _gestureRecognizerDelegate = [[RMGalleryGestureRecognizerDelegate alloc] initWithGalleryView:self];
+        
+        _swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
+        _swipeLeftGestureRecognizer.delegate = _gestureRecognizerDelegate;
+        _swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer:_swipeLeftGestureRecognizer];
 
-        UISwipeGestureRecognizer *swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
-        swipeRightGestureRecognizer.delegate = self;
-        swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        [self addGestureRecognizer:swipeRightGestureRecognizer];
+        _swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
+        _swipeRightGestureRecognizer.delegate = _gestureRecognizerDelegate;
+        _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer:_swipeRightGestureRecognizer];
     }
     return self;
 }
@@ -72,13 +78,6 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 #pragma mark Swipes
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    if (otherGestureRecognizer.view == self) return NO;
-    
-    return YES;
-}
 
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
@@ -107,7 +106,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    _willBeingDraggingIndex = [_imageFlowLayout indexForOffset:self.contentOffset];
+    _willBeginDraggingIndex = [_imageFlowLayout indexForOffset:self.contentOffset];
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView*)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint*)targetContentOffset
@@ -116,14 +115,14 @@ static NSString *const CellIdentifier = @"Cell";
     if (velocity.x == 0)
     {
         targetIndex = [_imageFlowLayout indexForOffset:*targetContentOffset];
-        if (targetIndex != _willBeingDraggingIndex)
+        if (targetIndex != _willBeginDraggingIndex)
         {
-            targetIndex = targetIndex > _willBeingDraggingIndex ? _willBeingDraggingIndex + 1 : _willBeingDraggingIndex - 1;
+            targetIndex = targetIndex > _willBeginDraggingIndex ? _willBeginDraggingIndex + 1 : _willBeginDraggingIndex - 1;
         }
     }
     else
     {
-        targetIndex = velocity.x > 0 ? _willBeingDraggingIndex + 1 : _willBeingDraggingIndex - 1;
+        targetIndex = velocity.x > 0 ? _willBeginDraggingIndex + 1 : _willBeginDraggingIndex - 1;
     }
     targetIndex = MAX(0, targetIndex);
     const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInGalleryView:self] - 1;
@@ -180,6 +179,28 @@ static NSString *const CellIdentifier = @"Cell";
     const CGPoint contentOffset = self.collectionView.contentOffset;
     const CGPoint offset = CGPointMake(offsetX, contentOffset.y);
     return offset;
+}
+
+@end
+
+
+@implementation RMGalleryGestureRecognizerDelegate
+{
+    __weak RMGalleryView *_galleryView;
+}
+
+- (id)initWithGalleryView:(__weak RMGalleryView*)galleryView
+{
+    if (self = [super init])
+    {
+        _galleryView = galleryView;
+    }
+    return self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return otherGestureRecognizer.view != _galleryView;
 }
 
 @end

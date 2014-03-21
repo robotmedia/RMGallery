@@ -14,6 +14,10 @@
 
 @property (nonatomic, weak) id<RMGalleryViewDataSource> galleryDataSource;
 
+@property (nonatomic, readonly) UISwipeGestureRecognizer *swipeLeftGestureRecognizer;
+
+@property (nonatomic, readonly) UISwipeGestureRecognizer *swipeRightGestureRecognizer;
+
 @end
 
 @protocol RMGalleryViewDataSource
