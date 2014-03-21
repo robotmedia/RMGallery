@@ -246,8 +246,9 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = (RMGalleryCell*)[_galleryView cellForItemAtIndexPath:indexPath];
     UIScrollView *scrollView = cell.scrollView;
     BOOL zooming = scrollView.zoomScale > scrollView.minimumZoomScale;
-    NSLog(@"%d", zooming);
     return !zooming;
+    
+    // TODO: Receive touches when leftmost or rightmost
 }
 
 @end
