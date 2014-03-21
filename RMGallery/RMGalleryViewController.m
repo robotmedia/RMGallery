@@ -10,7 +10,7 @@
 #import "RMGalleryView.h"
 
 @implementation RMGalleryViewController {
-    BOOL _controlsHidden;
+    BOOL _barsHidden;
 }
 
 - (void)viewDidLoad
@@ -35,20 +35,13 @@
 {
     [super viewWillDisappear:animated];
     
-    // Restore navigation bar and toolbar
-    UINavigationController *navigationController = self.navigationController;
-    UINavigationBar *navigationBar = navigationController.navigationBar;
-    UIToolbar *toolbar = navigationController.toolbar;
-    const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
-    [UIView animateWithDuration:duration animations:^{
-        navigationBar.alpha = 1;
-        toolbar.alpha = 1;
-    }];
+    // Restore bars
+    [self setBarsHidden:NO animated:animated];
 }
 
 - (BOOL)prefersStatusBarHidden
 {
-    return _controlsHidden;
+    return _barsHidden;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
@@ -60,15 +53,22 @@
 
 - (void)tapGesture:(UIGestureRecognizer*)gestureRecognizer
 {
-    _controlsHidden = !_controlsHidden;
+    [self setBarsHidden:!_barsHidden animated:YES];
+}
 
+#pragma mark Public
+
+- (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated
+{
+    _barsHidden = hidden;
+    
     UINavigationController *navigationController = self.navigationController;
     UINavigationBar *navigationBar = navigationController.navigationBar;
     UIToolbar *toolbar = navigationController.toolbar;
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
         [self setNeedsStatusBarAppearanceUpdate];
-        navigationBar.alpha = _controlsHidden ? 0 : 1;
-        toolbar.alpha = _controlsHidden ? 0 : 1;
+        navigationBar.alpha = hidden ? 0 : 1;
+        toolbar.alpha = hidden ? 0 : 1;
     }];
 }
 

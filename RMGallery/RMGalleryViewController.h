@@ -15,4 +15,6 @@
 
 @property (nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
+- (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
+
 @end
