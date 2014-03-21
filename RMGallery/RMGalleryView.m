@@ -158,8 +158,10 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (CGSize)itemSize
 {
-    CGRect bounds = self.collectionView.bounds;
-    return bounds.size;
+    const CGSize viewSize = self.collectionView.bounds.size;
+    const UIEdgeInsets viewInset = self.collectionView.contentInset;
+    const CGSize size = CGSizeMake(viewSize.width - viewInset.left - viewInset.right, viewSize.height - viewInset.top - viewInset.bottom);
+    return size;
 }
 
 #pragma mark UICollectionViewLayout
