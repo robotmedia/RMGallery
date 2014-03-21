@@ -8,7 +8,6 @@
 
 #import "RMGalleryViewController.h"
 #import "RMGalleryView.h"
-#import "RMGalleryCell.h"
 
 @implementation RMGalleryViewController
 

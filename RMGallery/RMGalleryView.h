@@ -18,8 +18,8 @@
 
 @protocol RMGalleryViewDataSource
 
-- (UIImage*)imageCollectionView:(RMGalleryView*)imageCollectionView imageForIndex:(NSUInteger)index;
+- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image))completionBlock;
 
-- (NSUInteger)numberOfImagesInImageCollectionView:(RMGalleryView*)image;
+- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)image;
 
 @end

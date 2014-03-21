@@ -7,6 +7,7 @@
 //
 
 #import "RMDemoViewController.h"
+#import "UIImage+RMGalleryDemo.h"
 
 @interface RMDemoViewController()<RMGalleryViewDataSource>
 
@@ -22,13 +23,21 @@
 
 #pragma mark RMGalleryViewDataSource
 
-- (UIImage*)imageCollectionView:(RMGalleryView*)imageCollectionView imageForIndex:(NSUInteger)index
+- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *))completionBlock
 {
-    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"photo%d.jpg", index + 1]];
-    return image;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        NSString *name = [NSString stringWithFormat:@"photo%d.jpg", index + 1];
+        UIImage *image = [UIImage imageNamed:name];
+        image = [image demo_imageByScalingByFactor:0.75];
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            completionBlock(image);
+        });
+    });
 }
 
-- (NSUInteger)numberOfImagesInImageCollectionView:(RMGalleryView*)image
+- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)image
 {
     return 3;
 }

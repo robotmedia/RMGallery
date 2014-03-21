@@ -11,6 +11,7 @@
 @interface RMGalleryCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, readonly) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, readonly) UIScrollView *scrollView;
 
 @end

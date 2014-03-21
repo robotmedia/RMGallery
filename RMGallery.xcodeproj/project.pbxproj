@@ -31,6 +31,8 @@
 		8757EE6318DC89E4005BBC8E /* photo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6018DC89E4005BBC8E /* photo1.jpg */; };
 		8757EE6418DC89E4005BBC8E /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6118DC89E4005BBC8E /* photo2.jpg */; };
 		8757EE6518DC89E4005BBC8E /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6218DC89E4005BBC8E /* photo3.jpg */; };
+		8757EE6A18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
+		8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		8757EE6018DC89E4005BBC8E /* photo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo1.jpg; sourceTree = "<group>"; };
 		8757EE6118DC89E4005BBC8E /* photo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo2.jpg; sourceTree = "<group>"; };
 		8757EE6218DC89E4005BBC8E /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo3.jpg; sourceTree = "<group>"; };
+		8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RMGalleryDemo.h"; sourceTree = "<group>"; };
+		8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RMGalleryDemo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +194,8 @@
 				8757EE2B18DC8495005BBC8E /* Supporting Files */,
 				8757EE5C18DC897A005BBC8E /* RMDemoViewController.h */,
 				8757EE5D18DC897A005BBC8E /* RMDemoViewController.m */,
+				8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */,
+				8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */,
 			);
 			path = RMGalleryDemo;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				8757EE5618DC8846005BBC8E /* RMGalleryCell.m in Sources */,
 				8757EE5818DC8846005BBC8E /* RMGalleryView.m in Sources */,
 				8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
+				8757EE6A18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +359,7 @@
 				8757EE5B18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
 				8757EE3118DC8495005BBC8E /* main.m in Sources */,
 				8757EE5F18DC897A005BBC8E /* RMDemoViewController.m in Sources */,
+				8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */,
 				8757EE3518DC8495005BBC8E /* RMAppDelegate.m in Sources */,
 				8757EE5718DC8846005BBC8E /* RMGalleryCell.m in Sources */,
 				8757EE5918DC8846005BBC8E /* RMGalleryView.m in Sources */,

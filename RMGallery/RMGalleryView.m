@@ -9,6 +9,8 @@
 #import "RMGalleryView.h"
 #import "RMGalleryCell.h"
 
+static NSString *const CellIdentifier = @"Cell";
+
 @interface RMGalleryViewLayout : UICollectionViewFlowLayout
 
 - (NSUInteger)indexForOffset:(CGPoint)offset;
@@ -35,7 +37,7 @@
     {
         self.dataSource = self;
         self.delegate = self;
-        [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:@"Cell"];
+        [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
         
         UISwipeGestureRecognizer *swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
         swipeLeftGestureRecognizer.delegate = self;
@@ -54,15 +56,18 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.galleryDataSource numberOfImagesInImageCollectionView:self];
+    return [self.galleryDataSource numberOfImagesInGalleryView:self];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    UIImage *image = [self.galleryDataSource imageCollectionView:self imageForIndex:indexPath.row];
-    cell.image = image;
+    [cell.activityIndicatorView startAnimating];
+    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+        [cell.activityIndicatorView stopAnimating];
+        cell.image = image;
+    }];
     return cell;
 }
 
@@ -78,7 +83,7 @@
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
-    const NSUInteger count = [self.galleryDataSource numberOfImagesInImageCollectionView:self];
+    const NSUInteger count = [self.galleryDataSource numberOfImagesInGalleryView:self];
     const NSUInteger nextIndex = index + 1;
     if (nextIndex < count)
     {
@@ -121,7 +126,7 @@
         targetIndex = velocity.x > 0 ? _willBeingDraggingIndex + 1 : _willBeingDraggingIndex - 1;
     }
     targetIndex = MAX(0, targetIndex);
-    const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInImageCollectionView:self] - 1;
+    const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInGalleryView:self] - 1;
     targetIndex = MIN(targetIndex, maxIndex);
     *targetContentOffset = [_imageFlowLayout offsetForIndex:targetIndex];
 }
@@ -145,7 +150,7 @@
     NSUInteger targetIndex = [self indexForOffset:proposedContentOffset];
 
     RMGalleryView *collectionView = (RMGalleryView*)self.collectionView;
-    const NSUInteger maxIndex = [collectionView.galleryDataSource numberOfImagesInImageCollectionView:collectionView] - 1;
+    const NSUInteger maxIndex = [collectionView.galleryDataSource numberOfImagesInGalleryView:collectionView] - 1;
     targetIndex = MIN(targetIndex, maxIndex);
     
     CGPoint targetContentOffset = [self offsetForIndex:targetIndex];

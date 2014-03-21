@@ -37,6 +37,17 @@
         _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _imageView.clipsToBounds = YES;
         [_scrollView addSubview:_imageView];
+        
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        _activityIndicatorView.hidesWhenStopped = YES;
+        [self.contentView addSubview:_activityIndicatorView];
+        
+        {
+            NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_activityIndicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+            NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_activityIndicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+            [self.contentView addConstraints:@[centerX, centerY]];
+        }
     }
     return self;
 }
@@ -49,6 +60,13 @@
     {
         self.image = image;
     }
+}
+
+#pragma mark UICollectionViewCell
+
+- (void)prepareForReuse
+{
+    self.image = nil;
 }
 
 #pragma mark Public
