@@ -83,6 +83,10 @@ static NSString *const CellIdentifier = @"Cell";
 
     [cell.activityIndicatorView startAnimating];
     [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+        // Check if cell was reused
+        NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
+        if ([indexPath compare:currentIndexPath] != NSOrderedSame) return;
+        
         [cell.activityIndicatorView stopAnimating];
         cell.image = image;
     }];
