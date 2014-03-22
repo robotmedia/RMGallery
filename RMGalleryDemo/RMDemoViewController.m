@@ -50,8 +50,9 @@
 
 - (void)barButtonAction:(UIBarButtonItem*)barButtonItem
 {
-    NSArray *cells = [self.galleryView visibleCells];
-    RMGalleryCell *galleryCell = [cells firstObject];
+    RMGalleryView *galleryView = self.galleryView;
+    const NSUInteger index = galleryView.galleryIndex;
+    RMGalleryCell *galleryCell = [galleryView galleryCellAtIndex:index];
     UIImage *image = galleryCell.image;
     if (!image) return;
     

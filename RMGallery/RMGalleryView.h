@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RMGalleryCell.h"
 
 @protocol RMGalleryViewDataSource;
 
@@ -19,6 +20,18 @@
 @property (nonatomic, readonly) UISwipeGestureRecognizer *swipeRightGestureRecognizer;
 
 @property (nonatomic, readonly) UITapGestureRecognizer *doubleTapGestureRecognizer;
+
+#pragma mark Managing state
+
+@property (nonatomic, assign) NSUInteger galleryIndex;
+
+- (void)setGalleryIndex:(NSUInteger)galleryIndex animated:(BOOL)animated;
+
+#pragma mark Locating cells
+
+- (RMGalleryCell*)galleryCellAtIndex:(NSUInteger)index;
+
+#pragma mark Actions
 
 - (void)showNext;
 

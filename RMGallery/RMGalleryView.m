@@ -7,7 +7,6 @@
 //
 
 #import "RMGalleryView.h"
-#import "RMGalleryCell.h"
 
 static NSString *const CellIdentifier = @"Cell";
 
@@ -133,11 +132,43 @@ static NSString *const CellIdentifier = @"Cell";
     *targetContentOffset = [_imageFlowLayout offsetForIndex:targetIndex];
 }
 
-#pragma mark Public
+#pragma mark Managing state
+
+- (NSUInteger)galleryIndex
+{
+    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
+    return index;
+}
+
+- (void)setGalleryIndex:(NSUInteger)index
+{
+    [self setGalleryIndex:index animated:NO];
+}
+
+- (void)setGalleryIndex:(NSUInteger)index animated:(BOOL)animated
+{
+    NSParameterAssert(index < [self.galleryDataSource numberOfImagesInGalleryView:self]);
+
+    const CGPoint offset = [_imageFlowLayout offsetForIndex:index];
+    [self setContentOffset:offset animated:animated];
+}
+
+#pragma mark Locating cells
+
+- (RMGalleryCell*)galleryCellAtIndex:(NSUInteger)index
+{
+    NSParameterAssert(index < [self.galleryDataSource numberOfImagesInGalleryView:self]);
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark Actions
 
 - (void)showNext
 {
-    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
+    const NSUInteger index = self.galleryIndex;
     const NSUInteger count = [self.galleryDataSource numberOfImagesInGalleryView:self];
     const NSUInteger nextIndex = index + 1;
     if (nextIndex < count)
@@ -149,7 +180,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)showPrevious
 {
-    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
+    const NSUInteger index = self.galleryIndex;
     const NSInteger previousIndex = index - 1;
     if (previousIndex >= 0)
     {
