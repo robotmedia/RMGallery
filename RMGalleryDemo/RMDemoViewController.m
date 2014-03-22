@@ -8,9 +8,8 @@
 
 #import "RMDemoViewController.h"
 #import "UIImage+RMGalleryDemo.h"
-#import "RMGalleryCell.h"
 
-@interface RMDemoViewController()<RMGalleryViewDataSource>
+@interface RMDemoViewController()<RMGalleryViewDataSource, RMGalleryViewDelegate>
 
 @end
 
@@ -20,9 +19,12 @@
 {
     [super viewDidLoad];
     self.galleryView.galleryDataSource = self;
+    self.galleryView.galleryDelegate = self;
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barButtonAction:)];
     self.toolbarItems = @[barButton];
+    
+    [self setTitleForIndex:0];
 }
 
 #pragma mark RMGalleryViewDataSource
@@ -46,6 +48,13 @@
     return 3;
 }
 
+#pragma mark RMGalleryViewDelegate
+
+- (void)galleryView:(RMGalleryView*)galleryView didChangeIndex:(NSUInteger)index
+{
+    [self setTitleForIndex:index];
+}
+
 #pragma mark Bar buttons
 
 - (void)barButtonAction:(UIBarButtonItem*)barButtonItem
@@ -58,6 +67,14 @@
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
     [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+#pragma mark Utils
+
+- (void)setTitleForIndex:(NSUInteger)index
+{
+    const NSUInteger count = [self numberOfImagesInGalleryView:self.galleryView];
+    self.title = [NSString stringWithFormat:@"%d of %d", index + 1, count];
 }
 
 @end

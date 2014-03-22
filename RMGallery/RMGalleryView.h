@@ -11,9 +11,13 @@
 
 @protocol RMGalleryViewDataSource;
 
+@protocol RMGalleryViewDelegate;
+
 @interface RMGalleryView : UICollectionView<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) id<RMGalleryViewDataSource> galleryDataSource;
+
+@property (nonatomic, weak) id<RMGalleryViewDelegate> galleryDelegate;
 
 @property (nonatomic, readonly) UISwipeGestureRecognizer *swipeLeftGestureRecognizer;
 
@@ -41,10 +45,18 @@
 
 @end
 
-@protocol RMGalleryViewDataSource
+@protocol RMGalleryViewDataSource<NSObject>
 
 - (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image))completionBlock;
 
 - (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)image;
+
+@end
+
+@protocol RMGalleryViewDelegate<NSObject>
+
+@optional
+
+- (void)galleryView:(RMGalleryView*)galleryView didChangeIndex:(NSUInteger)index;
 
 @end

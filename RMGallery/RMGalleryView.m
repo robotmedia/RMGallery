@@ -29,6 +29,7 @@ static NSString *const CellIdentifier = @"Cell";
     NSUInteger _willBeginDraggingIndex;
     RMGalleryViewLayout *_imageFlowLayout;
     RMGalleryViewSwipeGRDelegate *_swipeDelegate;
+    NSUInteger _currentGalleryIndex;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -38,6 +39,8 @@ static NSString *const CellIdentifier = @"Cell";
     self = [super initWithFrame:frame collectionViewLayout:_imageFlowLayout];
     if (self)
     {
+        _currentGalleryIndex = 0;
+        
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.dataSource = self;
@@ -130,6 +133,21 @@ static NSString *const CellIdentifier = @"Cell";
     const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInGalleryView:self] - 1;
     targetIndex = MIN(targetIndex, maxIndex);
     *targetContentOffset = [_imageFlowLayout offsetForIndex:targetIndex];
+}
+
+#pragma mark Changing the index
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    const NSUInteger index = self.galleryIndex;
+    if (index != _currentGalleryIndex)
+    {
+        _currentGalleryIndex = index;
+        if ([self.galleryDelegate respondsToSelector:@selector(galleryView:didChangeIndex:)])
+        {
+            [self.galleryDelegate galleryView:self didChangeIndex:index];
+        }
+    }
 }
 
 #pragma mark Managing state
