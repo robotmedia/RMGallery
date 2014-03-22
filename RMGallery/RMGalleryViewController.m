@@ -22,6 +22,7 @@
     [self.view addSubview:_galleryView];
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [_tapGestureRecognizer requireGestureRecognizerToFail:self.galleryView.doubleTapGestureRecognizer];
     [self.view addGestureRecognizer:_tapGestureRecognizer];
 }
 
