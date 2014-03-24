@@ -24,12 +24,17 @@ static NSString *const CellIdentifier = @"Cell";
 
 @end
 
+@interface RMGalleryView()<UICollectionViewDelegate>
+
+@end
+
 @implementation RMGalleryView
 {
     NSUInteger _willBeginDraggingIndex;
     RMGalleryViewLayout *_imageFlowLayout;
     RMGalleryViewSwipeGRDelegate *_swipeDelegate;
     NSUInteger _currentGalleryIndex;
+    __weak id<UICollectionViewDelegate> _realDelegate;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -64,7 +69,8 @@ static NSString *const CellIdentifier = @"Cell";
         _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
         _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
         [self addGestureRecognizer:_doubleTapGestureRecognizer];
-        
+
+        [super setDelegate:self];
     }
     return self;
 }
@@ -112,11 +118,16 @@ static NSString *const CellIdentifier = @"Cell";
     [self showPrevious];
 }
 
-#pragma mark Paging
+#pragma mark UICollectionViewDelegate (Paging)
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     _willBeginDraggingIndex = [_imageFlowLayout indexForOffset:self.contentOffset];
+    
+    if ([_realDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)])
+    {
+        [_realDelegate scrollViewWillBeginDragging:scrollView];
+    }
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView*)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint*)targetContentOffset
@@ -138,9 +149,14 @@ static NSString *const CellIdentifier = @"Cell";
     const NSUInteger maxIndex = [self.galleryDataSource numberOfImagesInGalleryView:self] - 1;
     targetIndex = MIN(targetIndex, maxIndex);
     *targetContentOffset = [_imageFlowLayout offsetForIndex:targetIndex];
+    
+    if ([_realDelegate respondsToSelector:@selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:)])
+    {
+        [_realDelegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
 }
 
-#pragma mark Changing the index
+#pragma mark UICollectionViewDelegate (Changing the index)
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -152,6 +168,10 @@ static NSString *const CellIdentifier = @"Cell";
         {
             [self.galleryDelegate galleryView:self didChangeIndex:index];
         }
+    }
+    if ([_realDelegate respondsToSelector:@selector(scrollViewDidScroll:)])
+    {
+        [_realDelegate scrollViewDidScroll:scrollView];
     }
 }
 
@@ -221,6 +241,42 @@ static NSString *const CellIdentifier = @"Cell";
     const CGPoint cellPoint = [cell convertPoint:point fromView:self];
     [cell doubleTapAtPoint:cellPoint];
 }
+
+#pragma mark Collection View delegate forwarding
+
+- (void)dealloc
+{
+    self.delegate = nil;
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation
+{
+    if ([_realDelegate respondsToSelector:invocation.selector])
+    {
+        [invocation invokeWithTarget:_realDelegate];
+    }
+    else
+    {
+        [super forwardInvocation:invocation];
+    }
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)s
+{
+    return [super methodSignatureForSelector:s] ?: [(id)_realDelegate methodSignatureForSelector:s];
+}
+
+- (BOOL)respondsToSelector:(SEL)s
+{
+    return [super respondsToSelector:s] || [_realDelegate respondsToSelector:s];
+}
+
+- (void)setDelegate:(id<UICollectionViewDelegate>)delegate
+{
+    [super setDelegate: delegate ? self : nil];
+    _realDelegate = delegate != self ? delegate : nil;
+}
+
 
 @end
 
