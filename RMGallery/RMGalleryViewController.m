@@ -63,14 +63,34 @@
 {
     _barsHidden = hidden;
     
+    const BOOL viewControllerBasedStatusBarAppearence = [self.class viewControllerBasedStatusBarAppearence];
+    
+    if (!viewControllerBasedStatusBarAppearence)
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
+    }
     UINavigationController *navigationController = self.navigationController;
     UINavigationBar *navigationBar = navigationController.navigationBar;
     UIToolbar *toolbar = navigationController.toolbar;
-    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
-        [self setNeedsStatusBarAppearanceUpdate];
+    const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
+    [UIView animateWithDuration:duration animations:^{
+        if (viewControllerBasedStatusBarAppearence)
+        {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
         navigationBar.alpha = hidden ? 0 : 1;
         toolbar.alpha = hidden ? 0 : 1;
     }];
+}
+
+#pragma mark Utils
+
++ (BOOL)viewControllerBasedStatusBarAppearence
+{
+    static NSString *const key = @"UIViewControllerBasedStatusBarAppearance";
+    NSNumber *value = [[NSBundle mainBundle] objectForInfoDictionaryKey:key];
+    BOOL viewControllerBasedStatusBarAppaearence = [value boolValue];
+    return viewControllerBasedStatusBarAppaearence;
 }
 
 @end
