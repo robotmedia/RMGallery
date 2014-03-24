@@ -18,3 +18,9 @@
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
+
+@interface RMGalleryViewController(Sublassing)
+
+- (void)animatingBarsHidden:(BOOL)hidden;
+
+@end

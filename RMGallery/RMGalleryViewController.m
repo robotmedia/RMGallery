@@ -80,6 +80,8 @@
         }
         navigationBar.alpha = hidden ? 0 : 1;
         toolbar.alpha = hidden ? 0 : 1;
+        
+        [self animatingBarsHidden:hidden];
     }];
 }
 
@@ -92,5 +94,11 @@
     BOOL viewControllerBasedStatusBarAppaearence = [value boolValue];
     return viewControllerBasedStatusBarAppaearence;
 }
+
+@end
+
+@implementation RMGalleryViewController(Sublassing)
+
+- (void)animatingBarsHidden:(BOOL)hidden {}
 
 @end
