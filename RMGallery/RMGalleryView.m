@@ -81,14 +81,16 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
     [cell.activityIndicatorView startAnimating];
+    __block BOOL sync = YES;
     [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
         // Check if cell was reused
         NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
-        if ([indexPath compare:currentIndexPath] != NSOrderedSame) return;
+        if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
         cell.image = image;
     }];
+    sync = NO;
     return cell;
 }
 
