@@ -44,7 +44,6 @@ static NSString *const CellIdentifier = @"Cell";
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.dataSource = self;
-        self.delegate = self;
         [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
         
         // Apparently, UICollectionView or one of its subclasses acts as UIGestureRecognizerDelegate. We use this inner class to avoid conflicts.

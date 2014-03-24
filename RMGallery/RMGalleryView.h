@@ -13,7 +13,7 @@
 
 @protocol RMGalleryViewDelegate;
 
-@interface RMGalleryView : UICollectionView<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface RMGalleryView : UICollectionView<UICollectionViewDataSource>
 
 @property (nonatomic, weak) id<RMGalleryViewDataSource> galleryDataSource;
 
