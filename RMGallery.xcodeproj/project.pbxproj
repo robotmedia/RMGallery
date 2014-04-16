@@ -33,6 +33,16 @@
 		8757EE6518DC89E4005BBC8E /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6218DC89E4005BBC8E /* photo3.jpg */; };
 		8757EE6A18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
 		8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
+		87A5FE5218FED8F400237AF5 /* RMDemoOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */; };
+		87A5FE5318FED8F400237AF5 /* RMDemoOriginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */; };
+		87A5FE5A18FEDA6900237AF5 /* thumbnail1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5418FEDA6900237AF5 /* thumbnail1.jpg */; };
+		87A5FE5B18FEDA6900237AF5 /* thumbnail1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5518FEDA6900237AF5 /* thumbnail1@2x.jpg */; };
+		87A5FE5C18FEDA6900237AF5 /* thumbnail2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5618FEDA6900237AF5 /* thumbnail2.jpg */; };
+		87A5FE5D18FEDA6900237AF5 /* thumbnail2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5718FEDA6900237AF5 /* thumbnail2@2x.jpg */; };
+		87A5FE5E18FEDA6900237AF5 /* thumbnail3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5818FEDA6900237AF5 /* thumbnail3.jpg */; };
+		87A5FE5F18FEDA6900237AF5 /* thumbnail3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */; };
+		87A5FE6218FEDC7700237AF5 /* RMGalleryTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */; };
+		87A5FE6318FEDD6900237AF5 /* RMGalleryTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +97,17 @@
 		8757EE6218DC89E4005BBC8E /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo3.jpg; sourceTree = "<group>"; };
 		8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RMGalleryDemo.h"; sourceTree = "<group>"; };
 		8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RMGalleryDemo.m"; sourceTree = "<group>"; };
+		87A5FE4F18FED8F400237AF5 /* RMDemoOriginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDemoOriginViewController.h; sourceTree = "<group>"; };
+		87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDemoOriginViewController.m; sourceTree = "<group>"; };
+		87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMDemoOriginViewController.xib; sourceTree = "<group>"; };
+		87A5FE5418FEDA6900237AF5 /* thumbnail1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thumbnail1.jpg; sourceTree = "<group>"; };
+		87A5FE5518FEDA6900237AF5 /* thumbnail1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnail1@2x.jpg"; sourceTree = "<group>"; };
+		87A5FE5618FEDA6900237AF5 /* thumbnail2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thumbnail2.jpg; sourceTree = "<group>"; };
+		87A5FE5718FEDA6900237AF5 /* thumbnail2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnail2@2x.jpg"; sourceTree = "<group>"; };
+		87A5FE5818FEDA6900237AF5 /* thumbnail3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thumbnail3.jpg; sourceTree = "<group>"; };
+		87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnail3@2x.jpg"; sourceTree = "<group>"; };
+		87A5FE6018FEDC7700237AF5 /* RMGalleryTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGalleryTransition.h; sourceTree = "<group>"; };
+		87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +184,8 @@
 				8757EE5318DC8846005BBC8E /* RMGalleryView.m */,
 				8757EE5418DC8846005BBC8E /* RMGalleryViewController.h */,
 				8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */,
+				87A5FE6018FEDC7700237AF5 /* RMGalleryTransition.h */,
+				87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */,
 			);
 			path = RMGallery;
 			sourceTree = "<group>";
@@ -193,6 +216,9 @@
 				8757EE3418DC8495005BBC8E /* RMAppDelegate.m */,
 				8757EE5C18DC897A005BBC8E /* RMDemoGalleryViewController.h */,
 				8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */,
+				87A5FE4F18FED8F400237AF5 /* RMDemoOriginViewController.h */,
+				87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */,
+				87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */,
 				8757EE2B18DC8495005BBC8E /* Supporting Files */,
 				8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */,
 				8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */,
@@ -217,6 +243,12 @@
 				8757EE6018DC89E4005BBC8E /* photo1.jpg */,
 				8757EE6118DC89E4005BBC8E /* photo2.jpg */,
 				8757EE6218DC89E4005BBC8E /* photo3.jpg */,
+				87A5FE5418FEDA6900237AF5 /* thumbnail1.jpg */,
+				87A5FE5518FEDA6900237AF5 /* thumbnail1@2x.jpg */,
+				87A5FE5618FEDA6900237AF5 /* thumbnail2.jpg */,
+				87A5FE5718FEDA6900237AF5 /* thumbnail2@2x.jpg */,
+				87A5FE5818FEDA6900237AF5 /* thumbnail3.jpg */,
+				87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */,
 			);
 			name = Photos;
 			sourceTree = "<group>";
@@ -322,11 +354,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87A5FE5318FED8F400237AF5 /* RMDemoOriginViewController.xib in Resources */,
 				8757EE6518DC89E4005BBC8E /* photo3.jpg in Resources */,
 				8757EE2F18DC8495005BBC8E /* InfoPlist.strings in Resources */,
 				8757EE6418DC89E4005BBC8E /* photo2.jpg in Resources */,
+				87A5FE5E18FEDA6900237AF5 /* thumbnail3.jpg in Resources */,
+				87A5FE5F18FEDA6900237AF5 /* thumbnail3@2x.jpg in Resources */,
+				87A5FE5D18FEDA6900237AF5 /* thumbnail2@2x.jpg in Resources */,
+				87A5FE5C18FEDA6900237AF5 /* thumbnail2.jpg in Resources */,
 				8757EE3718DC8495005BBC8E /* Images.xcassets in Resources */,
 				8757EE6318DC89E4005BBC8E /* photo1.jpg in Resources */,
+				87A5FE5A18FEDA6900237AF5 /* thumbnail1.jpg in Resources */,
+				87A5FE5B18FEDA6900237AF5 /* thumbnail1@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +380,7 @@
 				8757EE5618DC8846005BBC8E /* RMGalleryCell.m in Sources */,
 				8757EE5818DC8846005BBC8E /* RMGalleryView.m in Sources */,
 				8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
+				87A5FE6218FEDC7700237AF5 /* RMGalleryTransition.m in Sources */,
 				8757EE6A18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,7 +398,9 @@
 			files = (
 				8757EE5B18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
 				8757EE3118DC8495005BBC8E /* main.m in Sources */,
+				87A5FE5218FED8F400237AF5 /* RMDemoOriginViewController.m in Sources */,
 				8757EE5F18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */,
+				87A5FE6318FEDD6900237AF5 /* RMGalleryTransition.m in Sources */,
 				8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */,
 				8757EE3518DC8495005BBC8E /* RMAppDelegate.m in Sources */,
 				8757EE5718DC8846005BBC8E /* RMGalleryCell.m in Sources */,

@@ -13,6 +13,8 @@
 
 @property (nonatomic, readonly) RMGalleryView *galleryView;
 
+@property (nonatomic, assign) NSUInteger galleryIndex;
+
 @property (nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;

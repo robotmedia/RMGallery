@@ -14,11 +14,11 @@
 
 @interface RMGalleryCell()<UIScrollViewDelegate>
 
+@property (nonatomic, readonly) UIImageView *imageView;
+
 @end
 
-@implementation RMGalleryCell {
-    UIImageView *_imageView;
-}
+@implementation RMGalleryCell
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -75,10 +75,14 @@
 
 - (void)setImage:(UIImage *)image
 {
+    [self setImage:image inSize:image.size];
+}
+
+- (void)setImage:(UIImage *)image inSize:(CGSize)imageSize
+{
     _scrollView.minimumZoomScale = 1;
     _scrollView.zoomScale = 1;
     
-    const CGSize imageSize = image.size;
     _imageView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height);
     _imageView.image = image;
     _scrollView.contentSize = image.size;
@@ -88,9 +92,9 @@
     const CGFloat xScale = viewSize.width / imageSize.width;
     const CGFloat yScale = viewSize.height / imageSize.height;
     const CGFloat minScale = MIN(xScale, yScale);
-
+    
 	_scrollView.minimumZoomScale = minScale;
-
+    
     _scrollView.zoomScale = xScale > 1 && yScale > 1 ? 1 : minScale;
     
     _scrollView.contentOffset = CGPointZero; // Will be centered
@@ -100,7 +104,6 @@
 {
     return _imageView.image;
 }
-
 
 #pragma mark Actions
 

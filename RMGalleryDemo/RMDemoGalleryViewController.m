@@ -24,7 +24,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barButtonAction:)];
     self.toolbarItems = @[barButton];
     
-    [self setTitleForIndex:0];
+    [self setTitleForIndex:self.galleryIndex];
 }
 
 #pragma mark RMGalleryViewDataSource

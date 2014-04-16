@@ -18,4 +18,6 @@
 
 - (void)doubleTapAtPoint:(CGPoint)point;
 
+- (void)setImage:(UIImage *)image inSize:(CGSize)size;
+
 @end

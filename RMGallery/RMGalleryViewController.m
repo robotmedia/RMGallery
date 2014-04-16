@@ -11,7 +11,10 @@
 
 @implementation RMGalleryViewController {
     BOOL _barsHidden;
+    BOOL _initialGalleryIndexSet;
 }
+
+@synthesize galleryIndex = _galleryIndex;
 
 - (void)viewDidLoad
 {
@@ -24,6 +27,17 @@
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGestureRecognizer requireGestureRecognizerToFail:self.galleryView.doubleTapGestureRecognizer];
     [self.view addGestureRecognizer:_tapGestureRecognizer];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!_initialGalleryIndexSet)
+    {
+        // In case the gallery index was set before the view was loaded
+        self.galleryView.galleryIndex = _galleryIndex;
+        _initialGalleryIndexSet = YES;
+    }
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -59,6 +73,11 @@
 
 #pragma mark Public
 
+- (NSUInteger)galleryIndex
+{
+    return self.galleryView && _initialGalleryIndexSet ? self.galleryView.galleryIndex : _galleryIndex;
+}
+
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated
 {
     _barsHidden = hidden;
@@ -83,6 +102,18 @@
         
         [self animatingBarsHidden:hidden];
     }];
+}
+
+- (void)setGalleryIndex:(NSUInteger)galleryIndex
+{
+    if (self.galleryView.galleryDataSource)
+    {
+        self.galleryView.galleryIndex = galleryIndex;
+    }
+    else
+    {
+        _galleryIndex = galleryIndex;
+    }
 }
 
 #pragma mark Utils
