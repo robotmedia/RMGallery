@@ -33,9 +33,11 @@ static NSString *const CellIdentifier = @"Cell";
     NSUInteger _willBeginDraggingIndex;
     RMGalleryViewLayout *_imageFlowLayout;
     RMGalleryViewSwipeGRDelegate *_swipeDelegate;
-    NSUInteger _currentGalleryIndex;
     __weak id<UICollectionViewDelegate> _realDelegate;
+    NSUInteger _galleryIndex;
 }
+
+@synthesize galleryIndex = _galleryIndex;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -44,7 +46,7 @@ static NSString *const CellIdentifier = @"Cell";
     self = [super initWithFrame:frame collectionViewLayout:_imageFlowLayout];
     if (self)
     {
-        _currentGalleryIndex = 0;
+        _galleryIndex = 0;
         
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
@@ -160,10 +162,10 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    const NSUInteger index = self.galleryIndex;
-    if (index != _currentGalleryIndex)
+    const NSUInteger index = [_imageFlowLayout indexForOffset:scrollView.contentOffset];
+    if (index != _galleryIndex)
     {
-        _currentGalleryIndex = index;
+        _galleryIndex = index;
         if ([self.galleryDelegate respondsToSelector:@selector(galleryView:didChangeIndex:)])
         {
             [self.galleryDelegate galleryView:self didChangeIndex:index];
@@ -179,8 +181,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (NSUInteger)galleryIndex
 {
-    const NSUInteger index = [_imageFlowLayout indexForOffset:self.contentOffset];
-    return index;
+    return _galleryIndex;
 }
 
 - (void)setGalleryIndex:(NSUInteger)index
@@ -188,11 +189,13 @@ static NSString *const CellIdentifier = @"Cell";
     [self setGalleryIndex:index animated:NO];
 }
 
-- (void)setGalleryIndex:(NSUInteger)index animated:(BOOL)animated
+- (void)setGalleryIndex:(NSUInteger)galleryIndex animated:(BOOL)animated
 {
-    NSParameterAssert(index < [self.galleryDataSource numberOfImagesInGalleryView:self]);
+    NSParameterAssert(galleryIndex < [self.galleryDataSource numberOfImagesInGalleryView:self]);
 
-    const CGPoint offset = [_imageFlowLayout offsetForIndex:index];
+    _galleryIndex = galleryIndex;
+    
+    const CGPoint offset = [_imageFlowLayout offsetForIndex:_galleryIndex];
     [self setContentOffset:offset animated:animated];
 }
 
@@ -211,9 +214,8 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)showNext
 {
-    const NSUInteger index = self.galleryIndex;
     const NSUInteger count = [self.galleryDataSource numberOfImagesInGalleryView:self];
-    const NSUInteger nextIndex = index + 1;
+    const NSUInteger nextIndex = _galleryIndex + 1;
     if (nextIndex < count)
     {
         CGPoint offset = [_imageFlowLayout offsetForIndex:nextIndex];
@@ -223,8 +225,7 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)showPrevious
 {
-    const NSUInteger index = self.galleryIndex;
-    const NSInteger previousIndex = index - 1;
+    const NSInteger previousIndex = _galleryIndex - 1;
     if (previousIndex >= 0)
     {
         CGPoint offset = [_imageFlowLayout offsetForIndex:previousIndex];
@@ -296,14 +297,9 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset NS_AVAILABLE_IOS(7_0);
 {
-    NSUInteger targetIndex = [self indexForOffset:proposedContentOffset];
-
     RMGalleryView *collectionView = (RMGalleryView*)self.collectionView;
-    const NSUInteger maxIndex = [collectionView.galleryDataSource numberOfImagesInGalleryView:collectionView] - 1;
-    targetIndex = MIN(targetIndex, maxIndex);
-    
+    NSUInteger targetIndex = collectionView.galleryIndex;
     CGPoint targetContentOffset = [self offsetForIndex:targetIndex];
-
     return targetContentOffset;
 }
 
