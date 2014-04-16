@@ -7,7 +7,7 @@
 //
 
 #import "RMAppDelegate.h"
-#import "RMDemoViewController.h"
+#import "RMDemoGalleryViewController.h"
 
 @implementation RMAppDelegate
 
@@ -16,7 +16,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    RMDemoViewController *rootViewController = [RMDemoViewController new];
+    RMDemoGalleryViewController *rootViewController = [RMDemoGalleryViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     navigationController.toolbarHidden = NO;
     self.window.rootViewController = navigationController;

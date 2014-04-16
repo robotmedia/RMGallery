@@ -26,8 +26,8 @@
 		8757EE5918DC8846005BBC8E /* RMGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5318DC8846005BBC8E /* RMGalleryView.m */; };
 		8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */; };
 		8757EE5B18DC8846005BBC8E /* RMGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */; };
-		8757EE5E18DC897A005BBC8E /* RMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoViewController.m */; };
-		8757EE5F18DC897A005BBC8E /* RMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoViewController.m */; };
+		8757EE5E18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */; };
+		8757EE5F18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */; };
 		8757EE6318DC89E4005BBC8E /* photo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6018DC89E4005BBC8E /* photo1.jpg */; };
 		8757EE6418DC89E4005BBC8E /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6118DC89E4005BBC8E /* photo2.jpg */; };
 		8757EE6518DC89E4005BBC8E /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6218DC89E4005BBC8E /* photo3.jpg */; };
@@ -80,8 +80,8 @@
 		8757EE5318DC8846005BBC8E /* RMGalleryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryView.m; sourceTree = "<group>"; };
 		8757EE5418DC8846005BBC8E /* RMGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGalleryViewController.h; sourceTree = "<group>"; };
 		8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryViewController.m; sourceTree = "<group>"; };
-		8757EE5C18DC897A005BBC8E /* RMDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDemoViewController.h; sourceTree = "<group>"; };
-		8757EE5D18DC897A005BBC8E /* RMDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDemoViewController.m; sourceTree = "<group>"; };
+		8757EE5C18DC897A005BBC8E /* RMDemoGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDemoGalleryViewController.h; sourceTree = "<group>"; };
+		8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDemoGalleryViewController.m; sourceTree = "<group>"; };
 		8757EE6018DC89E4005BBC8E /* photo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo1.jpg; sourceTree = "<group>"; };
 		8757EE6118DC89E4005BBC8E /* photo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo2.jpg; sourceTree = "<group>"; };
 		8757EE6218DC89E4005BBC8E /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo3.jpg; sourceTree = "<group>"; };
@@ -187,13 +187,13 @@
 		8757EE2A18DC8495005BBC8E /* RMGalleryDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8757EE3618DC8495005BBC8E /* Images.xcassets */,
 				8757EE6618DC89E7005BBC8E /* Photos */,
 				8757EE3318DC8495005BBC8E /* RMAppDelegate.h */,
 				8757EE3418DC8495005BBC8E /* RMAppDelegate.m */,
-				8757EE3618DC8495005BBC8E /* Images.xcassets */,
+				8757EE5C18DC897A005BBC8E /* RMDemoGalleryViewController.h */,
+				8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */,
 				8757EE2B18DC8495005BBC8E /* Supporting Files */,
-				8757EE5C18DC897A005BBC8E /* RMDemoViewController.h */,
-				8757EE5D18DC897A005BBC8E /* RMDemoViewController.m */,
 				8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */,
 				8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */,
 			);
@@ -337,7 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8757EE5E18DC897A005BBC8E /* RMDemoViewController.m in Sources */,
+				8757EE5E18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */,
 				8757EE5618DC8846005BBC8E /* RMGalleryCell.m in Sources */,
 				8757EE5818DC8846005BBC8E /* RMGalleryView.m in Sources */,
 				8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
@@ -358,7 +358,7 @@
 			files = (
 				8757EE5B18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
 				8757EE3118DC8495005BBC8E /* main.m in Sources */,
-				8757EE5F18DC897A005BBC8E /* RMDemoViewController.m in Sources */,
+				8757EE5F18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */,
 				8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */,
 				8757EE3518DC8495005BBC8E /* RMAppDelegate.m in Sources */,
 				8757EE5718DC8846005BBC8E /* RMGalleryCell.m in Sources */,
