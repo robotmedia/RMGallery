@@ -7,6 +7,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RMDemoOriginViewController">
             <connections>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="imageViews" destination="N3W-jB-spg" id="Cfa-Cm-wqI"/>
+                <outletCollection property="imageViews" destination="nCQ-wB-ZRR" id="aSY-tq-Pn1"/>
+                <outletCollection property="imageViews" destination="kBN-Rg-coN" id="1yk-Lx-8NU"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -15,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbnail1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="N3W-jB-spg">
-                    <rect key="frame" x="110" y="129" width="100" height="72"/>
+                    <rect key="frame" x="110" y="89" width="100" height="72"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <gestureRecognizers/>
                     <connections>
@@ -23,7 +26,7 @@
                     </connections>
                 </imageView>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbnail2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="nCQ-wB-ZRR">
-                    <rect key="frame" x="110" y="209" width="100" height="66"/>
+                    <rect key="frame" x="110" y="169" width="100" height="66"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <gestureRecognizers/>
                     <connections>
@@ -31,15 +34,15 @@
                     </connections>
                 </imageView>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbnail3.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="kBN-Rg-coN">
-                    <rect key="frame" x="110" y="283" width="100" height="67"/>
+                    <rect key="frame" x="110" y="243" width="100" height="67"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <gestureRecognizers/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="9qa-7o-krK" appends="YES" id="2Vt-qN-eYn"/>
                     </connections>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on a thumbnail to enter the gallery" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWa-A0-5CS">
-                    <rect key="frame" x="11" y="100" width="294" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on a thumbnail to enter the gallery:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="KWa-A0-5CS">
+                    <rect key="frame" x="20" y="40" width="280" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -51,11 +54,12 @@
                 <constraint firstAttribute="centerX" secondItem="kBN-Rg-coN" secondAttribute="centerX" id="4To-SH-L1X"/>
                 <constraint firstAttribute="centerX" secondItem="nCQ-wB-ZRR" secondAttribute="centerX" id="N2v-uS-qkZ"/>
                 <constraint firstItem="nCQ-wB-ZRR" firstAttribute="top" secondItem="N3W-jB-spg" secondAttribute="bottom" constant="8" id="YnQ-Aj-iHu"/>
-                <constraint firstItem="KWa-A0-5CS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="amt-I8-8MJ"/>
+                <constraint firstItem="KWa-A0-5CS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="amt-I8-8MJ"/>
+                <constraint firstAttribute="trailing" secondItem="KWa-A0-5CS" secondAttribute="trailing" constant="20" symbolic="YES" id="c8H-9o-Orv"/>
                 <constraint firstAttribute="centerX" secondItem="N3W-jB-spg" secondAttribute="centerX" id="gAk-GI-a4r"/>
                 <constraint firstItem="N3W-jB-spg" firstAttribute="top" secondItem="KWa-A0-5CS" secondAttribute="bottom" constant="8" id="ibX-Iq-vqP"/>
-                <constraint firstAttribute="centerX" secondItem="KWa-A0-5CS" secondAttribute="centerX" constant="2.5" id="kxO-4S-UuQ"/>
                 <constraint firstItem="kBN-Rg-coN" firstAttribute="top" secondItem="nCQ-wB-ZRR" secondAttribute="bottom" constant="8" id="mPY-1k-qrn"/>
+                <constraint firstItem="KWa-A0-5CS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="nGR-C5-7bo"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

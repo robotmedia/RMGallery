@@ -12,22 +12,21 @@
 
 @interface RMDemoOriginViewController()<UIViewControllerTransitioningDelegate, RMGalleryTransitionDelegate>
 
+@property(retain) IBOutletCollection(UIImageView) NSArray *imageViews;
+
 @end
 
-@implementation RMDemoOriginViewController {
-    UIImageView *_selectedImageView;
-}
+@implementation RMDemoOriginViewController
 
-- (void)showGalleryAtIndex:(NSUInteger)index fromImageView:(UIImageView*)imageView
+- (void)showGalleryAtIndex:(NSUInteger)index
 {
-    _selectedImageView = imageView;
     RMDemoGalleryViewController *galleryViewController = [RMDemoGalleryViewController new];
     galleryViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissGallery:)];
     galleryViewController.galleryIndex = index;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:galleryViewController];
     navigationController.toolbarHidden = NO;
     navigationController.transitioningDelegate = self;
-    navigationController.modalPresentationStyle = UIModalPresentationCustom;
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -40,38 +39,48 @@
 
 - (IBAction)thumbnail1TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:0 fromImageView:(UIImageView*)gestureRecognizer.view];
+    [self showGalleryAtIndex:0];
 }
 
 - (IBAction)thumbnail2TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:1 fromImageView:(UIImageView*)gestureRecognizer.view];
+    [self showGalleryAtIndex:1];
 }
 
 - (IBAction)thumbnai3TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:2 fromImageView:(UIImageView*)gestureRecognizer.view];
+    [self showGalleryAtIndex:2];
 }
 
 #pragma mark UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    RMGalleryTransition *transition = [[RMGalleryTransition alloc] initWithImageView:_selectedImageView];
-    transition.delegate = self; // To provide the image size
+    RMGalleryTransition *transition = [RMGalleryTransition new];
+    transition.delegate = self;
     return transition;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[RMGalleryTransition alloc] initWithImageView:_selectedImageView];
+    RMGalleryTransition *transition = [RMGalleryTransition new];
+    transition.delegate = self;
+    return transition;
 }
 
 #pragma mark RMGalleryTransitionDelegate
 
-- (CGSize)galleryTransition:(RMGalleryTransition*)transition sizeForIndex:(NSUInteger)index
+- (UIImageView*)galleryTransition:(RMGalleryTransition*)transition transitionImageViewForIndex:(NSUInteger)index
+{
+    return self.imageViews[index];
+}
+
+- (CGSize)galleryTransition:(RMGalleryTransition*)transition estimatedSizeForIndex:(NSUInteger)index
 { // If the transition image is different than the one displayed in the gallery we need to provide its size
-    return CGSizeMake(3404, 2452);
+    UIImageView *imageView = self.imageViews[index];
+    const CGSize thumbnailSize = imageView.image.size;
+    const CGSize estimatedSize = CGSizeMake(thumbnailSize.width * 34.04, thumbnailSize.height * 34.04);
+    return estimatedSize;
 }
 
 @end

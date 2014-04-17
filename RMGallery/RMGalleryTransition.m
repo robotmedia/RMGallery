@@ -42,28 +42,7 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 
 @end
 
-@implementation RMGalleryTransition {
-    UIImageView *_imageView;
-    UIImage *_image;
-}
-
-- (id)initWithImageView:(UIImageView *)imageView
-{
-    if (self = [super init])
-    {
-        _imageView = imageView;
-    }
-    return self;
-}
-
-- (id)initWithImage:(UIImage *)image
-{
-    if (self = [super init])
-    {
-        _image = image;
-    }
-    return self;
-}
+@implementation RMGalleryTransition
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
@@ -89,22 +68,21 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = transitionContext.containerView;
-    UIView *toView = toViewController.view;
-    [containerView addSubview:toView];
     
-    UIImage *transitionImage = self.transitionImage;
+    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:toViewController];
+    const NSUInteger galleryIndex = galleryViewController.galleryIndex;
+    
+    UIImage *transitionImage = [self transitionImageForIndex:galleryIndex];
     UIImageView *transitionView = [[UIImageView alloc] initWithImage:transitionImage];
     transitionView.contentMode = UIViewContentModeScaleAspectFill;
     transitionView.clipsToBounds = YES;
     
     UIView *fromView = fromViewController.view;
-    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:toViewController];
-    const NSUInteger galleryIndex = galleryViewController.galleryIndex;
     const CGRect referenceRect = [self transitionRectForIndex:galleryIndex inView:fromView];
     transitionView.frame = [containerView convertRect:referenceRect fromView:fromView];
     
     UIView *coverView = [[UIView alloc] initWithFrame:transitionView.frame];
-    coverView.backgroundColor = [self coverColorInView:fromView];
+    coverView.backgroundColor = [self coverColorForIndex:galleryIndex inView:fromView];
     [containerView addSubview:coverView];
 
     UIView *backgroundView = [[UIView alloc] initWithFrame:containerView.bounds];
@@ -114,15 +92,7 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     
     [containerView addSubview:transitionView];
     
-    CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
-    if (CGRectIsEmpty(finalFrame))
-    { // In case finalFrameForViewController returns CGRectZero
-        finalFrame = fromView.frame;
-    }
-    const CGRect transitionViewFinalFrame = RMCGRectAspectFit(transitionImage.size, finalFrame.size);
-    
     const NSTimeInterval duration = [self transitionDuration:transitionContext];
-    toView.alpha = 0;
     [UIView animateWithDuration:duration
                           delay:0
          usingSpringWithDamping:0.7
@@ -130,17 +100,28 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          backgroundView.alpha = 1;
+                         
+                         const CGRect transitionViewFinalFrame = RMCGRectAspectFit(transitionImage.size, containerView.bounds.size);
                          transitionView.frame = transitionViewFinalFrame;
                      }
                      completion:^(BOOL finished) {
                          fromView.alpha = 1;
-                         toView.alpha = 1;
                          [backgroundView removeFromSuperview];
                          [coverView removeFromSuperview];
                          [transitionView removeFromSuperview];
                          
+                         UIView *toView = toViewController.view;
+                         [containerView addSubview:toView];
+                         CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
+                         if (CGRectIsEmpty(finalFrame))
+                         { // In case finalFrameForViewController returns CGRectZero
+                             finalFrame = fromView.bounds;
+                         }
+                         toView.frame = finalFrame;
+                         [toView layoutIfNeeded];
+                         
                          RMGalleryCell *transitionGalleryCell = galleryViewController.transitionGalleryCell;
-                         const CGSize imageSize = [self transitionImageSizeForIndex:galleryIndex];
+                         const CGSize imageSize = [self estimatedImageSizeForIndex:galleryIndex];
                          [transitionGalleryCell setImage:transitionImage inSize:imageSize];
                          
                          [transitionContext completeTransition:YES];
@@ -172,7 +153,7 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     const CGRect transitionViewFinalFrame = [transitionContext.containerView convertRect:referenceRect fromView:toView];
     
     UIView *coverView = coverView = [[UIView alloc] initWithFrame:referenceRect];
-    coverView.backgroundColor = [self coverColorInView:toView];
+    coverView.backgroundColor = [self coverColorForIndex:galleryIndex inView:toView];
     [toViewController.view addSubview:coverView];
 
     UIImageView *transitionView = [[UIImageView alloc] initWithImage:fromImageView.image];
@@ -200,42 +181,56 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 
 #pragma mark Utils
 
-- (UIColor*)coverColorInView:(UIView*)view
+- (UIColor*)coverColorForIndex:(NSUInteger)index inView:(UIView*)view
 {
-    if (_imageView)
+    UIImageView *imageView = [self transitionImageViewForIndex:index];
+    if (imageView)
     {
-        UIView *superview = _imageView.superview;
+        UIView *superview = imageView.superview;
         return superview.backgroundColor;
     }
     return view.backgroundColor;
 }
 
-- (UIImage*)transitionImage
+- (CGSize)estimatedImageSizeForIndex:(NSUInteger)index
 {
-    return _image ? : _imageView.image;
+    if ([self.delegate respondsToSelector:@selector(galleryTransition:estimatedSizeForIndex:)])
+    {
+        return [self.delegate galleryTransition:self estimatedSizeForIndex:index];
+    }
+    UIImageView *imageView = [self transitionImageViewForIndex:index];
+    UIImage *image = imageView.image;
+    return image ? image.size : CGSizeZero;
 }
 
-- (CGSize)transitionImageSizeForIndex:(NSUInteger)index
+- (UIImage*)transitionImageForIndex:(NSUInteger)index
 {
-    if ([self.delegate respondsToSelector:@selector(galleryTransition:sizeForIndex:)])
+    if ([self.delegate respondsToSelector:@selector(galleryTransition:transitionImageForIndex:)])
     {
-        return [self.delegate galleryTransition:self sizeForIndex:index];
+        UIImage *image = [self.delegate galleryTransition:self transitionImageForIndex:index];
+        if (image) return image;
     }
-    return self.transitionImage.size;
+    UIImageView *imageView = [self transitionImageViewForIndex:index];
+    return imageView.image;
+}
+
+- (UIImageView*)transitionImageViewForIndex:(NSUInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(galleryTransition:transitionImageViewForIndex:)])
+    {
+        return [self.delegate galleryTransition:self transitionImageViewForIndex:index];
+    }
+    return nil;
 }
 
 - (CGRect)transitionRectForIndex:(NSUInteger)index inView:(UIView*)view
 {
-    CGRect imageRect;
     if ([self.delegate respondsToSelector:@selector(galleryTransition:transitionRectForIndex:inView:)])
     {
-        imageRect = [self.delegate galleryTransition:self transitionRectForIndex:index inView:view];
+        return [self.delegate galleryTransition:self transitionRectForIndex:index inView:view];
     }
-    else
-    {
-        imageRect = [view convertRect:_imageView.bounds fromView:_imageView];
-    }
-    return imageRect;
+    UIImageView *imageView = [self transitionImageViewForIndex:index];
+    return imageView ? imageView.frame : CGRectZero;
 }
 
 - (RMGalleryViewController*)galleryViewControllerFromViewController:(UIViewController*)viewController

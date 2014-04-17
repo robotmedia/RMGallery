@@ -12,10 +12,6 @@
 
 @interface RMGalleryTransition : NSObject <UIViewControllerAnimatedTransitioning>
 
-- (id)initWithImageView:(UIImageView *)referenceImageView;
-
-- (id)initWithImage:(UIImage*)image;
-
 @property (nonatomic, weak) id<RMGalleryTransitionDelegate> delegate;
 
 @end
@@ -24,9 +20,13 @@
 
 @optional
 
+- (UIImageView*)galleryTransition:(RMGalleryTransition*)transition transitionImageViewForIndex:(NSUInteger)index;
+
+- (UIImage*)galleryTransition:(RMGalleryTransition*)transition transitionImageForIndex:(NSUInteger)index;
+
 - (CGRect)galleryTransition:(RMGalleryTransition*)transition transitionRectForIndex:(NSUInteger)index inView:(UIView*)view;
 
-- (CGSize)galleryTransition:(RMGalleryTransition*)transition sizeForIndex:(NSUInteger)index;
+- (CGSize)galleryTransition:(RMGalleryTransition*)transition estimatedSizeForIndex:(NSUInteger)index;
 
 @end
 
