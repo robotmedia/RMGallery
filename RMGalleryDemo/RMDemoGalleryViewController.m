@@ -9,6 +9,7 @@
 #import "RMDemoGalleryViewController.h"
 #import "UIImage+RMGalleryDemo.h"
 
+// RMGalleryViewController is designed to be subclased. In this example the subclass acts as the gallery data source,  takes care of displaying a dynamic title in the navigation bar and provides and action bar button system item.
 @interface RMDemoGalleryViewController()<RMGalleryViewDataSource, RMGalleryViewDelegate>
 
 @end
