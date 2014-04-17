@@ -9,7 +9,7 @@
 #import "RMGalleryTransition.h"
 #import "RMGalleryViewController.h"
 
-CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
+static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 {
     const CGFloat targetAspect = size.width / size.height;
     const CGFloat sourceAspect = sourceSize.width / sourceSize.height;
@@ -52,24 +52,28 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
+    NSAssert([transitionContext presentationStyle] == UIModalPresentationFullScreen, @"The modalPresentationStyle of the presented view controller must be UIModalPresentationFullScreen.");
+    
     UIViewController *viewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     if (viewController.isBeingPresented)
     {
-        [self animateZoomInTransition:transitionContext];
+        [self animateEnterTransition:transitionContext];
     }
     else
     {
-        [self animateZoomOutTransition:transitionContext];
+        [self animateExitTransition:transitionContext];
     }
 }
 
-- (void)animateZoomInTransition:(id<UIViewControllerContextTransitioning>)transitionContext
+- (void)animateEnterTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:toViewController];
+    NSAssert(galleryViewController, @"The presented view controller must be kind of RMGalleryViewController or be a UINavigationController with a RMGalleryViewController as the top view controller.");
+    
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIView *containerView = transitionContext.containerView;
     
-    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:toViewController];
     const NSUInteger galleryIndex = galleryViewController.galleryIndex;
     
     UIImage *transitionImage = [self transitionImageForIndex:galleryIndex];
@@ -112,11 +116,7 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                          
                          UIView *toView = toViewController.view;
                          [containerView addSubview:toView];
-                         CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
-                         if (CGRectIsEmpty(finalFrame))
-                         { // In case finalFrameForViewController returns CGRectZero
-                             finalFrame = fromView.bounds;
-                         }
+                         const CGRect finalFrame = [transitionContext finalFrameForViewController:toViewController];
                          toView.frame = finalFrame;
                          [toView layoutIfNeeded];
                          
@@ -128,11 +128,13 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                      }];
 }
 
-- (void)animateZoomOutTransition:(id<UIViewControllerContextTransitioning>)transitionContext
+- (void)animateExitTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    // Get the view controllers participating in the transition
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:fromViewController];
+    NSAssert(galleryViewController, @"The presented view controller must be kind of RMGalleryViewController or be a UINavigationController with a RMGalleryViewController as the top view controller.");
+    
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = transitionContext.containerView;
     
     UIView *toView = toViewController.view;
@@ -142,7 +144,6 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     toView.alpha = 0;
     [toView layoutIfNeeded];
     
-    RMGalleryViewController *galleryViewController = [self galleryViewControllerFromViewController:fromViewController];
     RMGalleryCell *transitionGalleryCell = galleryViewController.transitionGalleryCell;
     UIImageView *fromImageView = transitionGalleryCell.imageView;
     CGRect transitionViewInitialFrame = RMCGRectAspectFit(fromImageView.image.size, fromImageView.bounds.size);
@@ -163,9 +164,7 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     [containerView addSubview:transitionView];
     [fromViewController.view removeFromSuperview];
     
-    // Perform the transition
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-    
     [UIView animateWithDuration:duration
                           delay:0
                         options:UIViewAnimationOptionCurveEaseInOut
@@ -211,7 +210,9 @@ CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
         if (image) return image;
     }
     UIImageView *imageView = [self transitionImageViewForIndex:index];
-    return imageView.image;
+    UIImage *image = imageView.image;
+    NSAssert(image, @"The delegate must return an image in galleryTransition:transitionImageForIndex: or indirectly in galleryTransition:transitionImageViewForIndex:.");
+    return image;
 }
 
 - (UIImageView*)transitionImageViewForIndex:(NSUInteger)index
