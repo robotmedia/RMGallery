@@ -18,12 +18,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Set the gallery data source and delegate. Only the data source is required.
     self.galleryView.galleryDataSource = self;
     self.galleryView.galleryDelegate = self;
     
+    // Configure the toolbar to show an action bar button item. RMGalleryViewController does not provide any bar buttons but is designed to support a navigation bar and a toolbar.
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(barButtonAction:)];
     self.toolbarItems = @[barButton];
-    
+
+    // Set the view controller title. Note that the gallery index does not necessarilly have to be zero at this point.
     [self setTitleForIndex:self.galleryIndex];
 }
 
@@ -31,6 +35,7 @@
 
 - (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *))completionBlock
 {
+    // Typically images will be loaded asynchonously. To simulate this we resize the image in background.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         NSString *name = [NSString stringWithFormat:@"photo%d.jpg", index + 1];
@@ -55,7 +60,7 @@
     [self setTitleForIndex:index];
 }
 
-#pragma mark Bar buttons
+#pragma mark Toolbar
 
 - (void)barButtonAction:(UIBarButtonItem*)barButtonItem
 {
