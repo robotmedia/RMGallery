@@ -1,7 +1,8 @@
 RMGallery
 =========
 
-RMGallery
+![Demo](RMGalleryDemo/demo.gif)
+
 
 Sample photos:
 
