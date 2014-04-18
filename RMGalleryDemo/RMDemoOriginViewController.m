@@ -95,7 +95,9 @@
 { // If the transition image is different than the one displayed in the gallery we need to provide its size
     UIImageView *imageView = self.imageViews[index];
     const CGSize thumbnailSize = imageView.image.size;
-    const CGSize estimatedSize = CGSizeMake(thumbnailSize.width * 34.04, thumbnailSize.height * 34.04);
+    
+    // In this example the final images are about 30 times bigger than the thumbnail
+    const CGSize estimatedSize = CGSizeMake(thumbnailSize.width * 30, thumbnailSize.height * 30);
     return estimatedSize;
 }
 
