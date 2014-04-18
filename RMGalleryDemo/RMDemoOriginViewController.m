@@ -53,19 +53,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)thumbnail1TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
+- (IBAction)thumbnailTapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self presentGalleryWithImageAtIndex:0];
-}
-
-- (IBAction)thumbnail2TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
-{
-    [self presentGalleryWithImageAtIndex:1];
-}
-
-- (IBAction)thumbnai3TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
-{
-    [self presentGalleryWithImageAtIndex:2];
+    UIView *imageView = gestureRecognizer.view;
+    NSUInteger index = [self.imageViews indexOfObject:imageView];
+    [self presentGalleryWithImageAtIndex:index];
 }
 
 #pragma mark UIViewControllerTransitioningDelegate

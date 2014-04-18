@@ -67,17 +67,17 @@
         </view>
         <tapGestureRecognizer id="bqy-sa-iGd">
             <connections>
-                <action selector="thumbnail1TapGestureRecognized:" destination="-1" id="rCm-bx-aTt"/>
+                <action selector="thumbnailTapGestureRecognized:" destination="-1" id="Kd2-uf-fY6"/>
             </connections>
         </tapGestureRecognizer>
         <tapGestureRecognizer id="4m6-jl-CZJ">
             <connections>
-                <action selector="thumbnail2TapGestureRecognized:" destination="-1" id="s2x-Hd-E59"/>
+                <action selector="thumbnailTapGestureRecognized:" destination="-1" id="5c0-sS-gGa"/>
             </connections>
         </tapGestureRecognizer>
         <tapGestureRecognizer id="9qa-7o-krK">
             <connections>
-                <action selector="thumbnai3TapGestureRecognized:" destination="-1" id="HMX-Us-xbq"/>
+                <action selector="thumbnailTapGestureRecognized:" destination="-1" id="IhM-Sd-qOi"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
