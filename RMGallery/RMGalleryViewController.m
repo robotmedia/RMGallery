@@ -68,7 +68,14 @@
 
 - (void)tapGesture:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self setBarsHidden:!_barsHidden animated:YES];
+    if (self.navigationController)
+    {
+        [self setBarsHidden:!_barsHidden animated:YES];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark Public
