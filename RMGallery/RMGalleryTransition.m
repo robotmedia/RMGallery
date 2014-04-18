@@ -30,12 +30,6 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     return CGRectIntegral(rect);
 }
 
-@interface RMGalleryViewController(RMGalleryTransition)
-
-@property (nonatomic, readonly) RMGalleryCell *transitionGalleryCell;
-
-@end
-
 @interface RMGalleryCell(RMGalleryTransition)
 
 @property (nonatomic, readonly) UIImageView *imageView; // Implemented in RMGalleryCell.m
@@ -120,9 +114,10 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                          toView.frame = finalFrame;
                          [toView layoutIfNeeded];
                          
-                         RMGalleryCell *transitionGalleryCell = galleryViewController.transitionGalleryCell;
+                         RMGalleryView *galleryView = galleryViewController.galleryView;
+                         RMGalleryCell *galleryCell = [galleryView galleryCellAtIndex:galleryIndex];
                          const CGSize imageSize = [self estimatedImageSizeForIndex:galleryIndex];
-                         [transitionGalleryCell setImage:transitionImage inSize:imageSize];
+                         [galleryCell setImage:transitionImage inSize:imageSize];
                          
                          [transitionContext completeTransition:YES];
                      }];
@@ -144,12 +139,13 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     toView.alpha = 0;
     [toView layoutIfNeeded];
     
-    RMGalleryCell *transitionGalleryCell = galleryViewController.transitionGalleryCell;
-    UIImageView *fromImageView = transitionGalleryCell.imageView;
+    const NSUInteger galleryIndex = galleryViewController.galleryIndex;
+    RMGalleryView *galleryView = galleryViewController.galleryView;
+    RMGalleryCell *galleryCell = [galleryView galleryCellAtIndex:galleryIndex];
+    UIImageView *fromImageView = galleryCell.imageView;
     CGRect transitionViewInitialFrame = RMCGRectAspectFit(fromImageView.image.size, fromImageView.bounds.size);
     transitionViewInitialFrame = [transitionContext.containerView convertRect:transitionViewInitialFrame fromView:fromImageView];
     
-    const NSUInteger galleryIndex = galleryViewController.galleryIndex;
     const CGRect referenceRect = [self transitionRectForIndex:galleryIndex inView:toView];
     const CGRect transitionViewFinalFrame = [transitionContext.containerView convertRect:referenceRect fromView:toView];
     
@@ -246,18 +242,6 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     }
     
     return nil;
-}
-
-@end
-
-@implementation RMGalleryViewController(RMGalleryTransition)
-
-- (RMGalleryCell*)transitionGalleryCell
-{
-    RMGalleryView *galleryView = self.galleryView;
-    const NSUInteger galleryIndex = self.galleryIndex;
-    RMGalleryCell *cell = [galleryView galleryCellAtIndex:galleryIndex];
-    return cell;
 }
 
 @end
