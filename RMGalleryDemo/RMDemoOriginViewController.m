@@ -10,6 +10,8 @@
 #import "RMDemoGalleryViewController.h"
 #import "RMGalleryTransition.h"
 
+#define RM_NAVIGATION_CONTROLLER 1
+
 @interface RMDemoOriginViewController()<UIViewControllerTransitioningDelegate, RMGalleryTransitionDelegate>
 
 @property(retain) IBOutletCollection(UIImageView) NSArray *imageViews;
@@ -21,13 +23,27 @@
 - (void)showGalleryAtIndex:(NSUInteger)index
 {
     RMDemoGalleryViewController *galleryViewController = [RMDemoGalleryViewController new];
-    galleryViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissGallery:)];
     galleryViewController.galleryIndex = index;
+    
+// The gallery is designed to be presented in a navigation controller or on its own.
+    UIViewController *viewControllerToPresent;
+#if RM_NAVIGATION_CONTROLLER
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:galleryViewController];
     navigationController.toolbarHidden = NO;
-    navigationController.transitioningDelegate = self;
-    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    
+    // When using a navigation controller the tap gesture toggles the navigation bar and toolbar. A way to dismiss the gallery must be provided.
+    galleryViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissGallery:)];
+    
+    viewControllerToPresent = navigationController;
+#else
+    viewControllerToPresent = galleryViewController;
+#endif
+    
+    // Set the transitioning delegate. This is only necessary if you want to use RMGalleryTransition.
+    viewControllerToPresent.transitioningDelegate = self;
+    viewControllerToPresent.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    [self presentViewController:viewControllerToPresent animated:YES completion:nil];
 }
 
 #pragma mark Actions
