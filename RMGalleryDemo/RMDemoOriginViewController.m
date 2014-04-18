@@ -96,8 +96,8 @@
     UIImageView *imageView = self.imageViews[index];
     const CGSize thumbnailSize = imageView.image.size;
     
-    // In this example the final images are about 30 times bigger than the thumbnail
-    const CGSize estimatedSize = CGSizeMake(thumbnailSize.width * 30, thumbnailSize.height * 30);
+    // In this example the final images are about 25 times bigger than the thumbnail
+    const CGSize estimatedSize = CGSizeMake(thumbnailSize.width * 25, thumbnailSize.height * 25);
     return estimatedSize;
 }
 
