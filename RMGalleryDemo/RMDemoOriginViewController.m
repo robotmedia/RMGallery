@@ -20,7 +20,7 @@
 
 @implementation RMDemoOriginViewController
 
-- (void)showGalleryAtIndex:(NSUInteger)index
+- (void)presentGalleryWithImageAtIndex:(NSUInteger)index
 {
     RMDemoGalleryViewController *galleryViewController = [RMDemoGalleryViewController new];
     galleryViewController.galleryIndex = index;
@@ -55,17 +55,17 @@
 
 - (IBAction)thumbnail1TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:0];
+    [self presentGalleryWithImageAtIndex:0];
 }
 
 - (IBAction)thumbnail2TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:1];
+    [self presentGalleryWithImageAtIndex:1];
 }
 
 - (IBAction)thumbnai3TapGestureRecognized:(UIGestureRecognizer*)gestureRecognizer
 {
-    [self showGalleryAtIndex:2];
+    [self presentGalleryWithImageAtIndex:2];
 }
 
 #pragma mark UIViewControllerTransitioningDelegate
