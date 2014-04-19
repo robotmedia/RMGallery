@@ -19,6 +19,16 @@
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
+#pragma mark UIViewController overrides
+
+- (void)viewDidLoad NS_REQUIRES_SUPER;
+
+- (void)viewWillAppear:(BOOL)animated NS_REQUIRES_SUPER;
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration NS_REQUIRES_SUPER;
+
+- (void)viewWillDisappear:(BOOL)animated NS_REQUIRES_SUPER;
+
 @end
 
 @interface RMGalleryViewController(Sublassing)
