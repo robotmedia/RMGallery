@@ -12,9 +12,12 @@
 @implementation RMGalleryViewController {
     BOOL _barsHidden;
     BOOL _initialGalleryIndexSet;
+    UIToolbar *_toolbar;
 }
 
 @synthesize galleryIndex = _galleryIndex;
+
+#pragma mark UIViewController
 
 - (void)viewDidLoad
 {
@@ -26,6 +29,7 @@
     
     _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [_tapGestureRecognizer requireGestureRecognizerToFail:self.galleryView.doubleTapGestureRecognizer];
+    _tapGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:_tapGestureRecognizer];
 }
 
@@ -44,6 +48,7 @@
 {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [_galleryView.collectionViewLayout invalidateLayout];
+    [self layoutToolbarForInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -64,6 +69,15 @@
     return UIStatusBarAnimationFade;
 }
 
+- (void)setToolbarItems:(NSArray *)toolbarItems animated:(BOOL)animated
+{
+    [super setToolbarItems:toolbarItems animated:animated];
+    if (!self.navigationController)
+    {
+        [self.toolbar setItems:toolbarItems animated:animated];
+    }
+}
+
 #pragma mark Gestures
 
 - (void)tapGesture:(UIGestureRecognizer*)gestureRecognizer
@@ -76,6 +90,48 @@
     {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (gestureRecognizer == self.tapGestureRecognizer)
+    { // Do not recognize tap when touching the toolbar
+        return _toolbar ? ![touch.view isDescendantOfView:_toolbar] : YES;
+    }
+    return YES;
+}
+
+#pragma mark Toolbar
+
+- (void)layoutToolbarForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if (!_toolbar) return;
+    
+    const BOOL landscape = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    const BOOL isPhone = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
+    static CGFloat ToolbarHeightDefault = 44;
+    static CGFloat ToolbarHeightLandscapePhone = 32;
+    const CGFloat height = landscape && isPhone ? ToolbarHeightLandscapePhone : ToolbarHeightDefault;
+    const CGRect bounds = self.view.bounds;
+    _toolbar.frame = CGRectMake(0, bounds.size.height - height, bounds.size.width, height);
+}
+
+- (void)setupToolbar
+{
+    _toolbar = [UIToolbar new];
+    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:_toolbar];
+    [self layoutToolbarForInterfaceOrientation:self.interfaceOrientation];
+}
+
+- (UIToolbar*)toolbar
+{
+    if (self.navigationController) return self.navigationController.toolbar;
+    if (!_toolbar)
+    {
+        [self setupToolbar];
+    }
+    return _toolbar;
 }
 
 #pragma mark Public
@@ -97,7 +153,6 @@
     }
     UINavigationController *navigationController = self.navigationController;
     UINavigationBar *navigationBar = navigationController.navigationBar;
-    UIToolbar *toolbar = navigationController.toolbar;
     const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
     [UIView animateWithDuration:duration animations:^{
         if (viewControllerBasedStatusBarAppearence)
@@ -105,7 +160,7 @@
             [self setNeedsStatusBarAppearanceUpdate];
         }
         navigationBar.alpha = hidden ? 0 : 1;
-        toolbar.alpha = hidden ? 0 : 1;
+        self.toolbar.alpha = hidden ? 0 : 1;
         
         [self animatingBarsHidden:hidden];
     }];

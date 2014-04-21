@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "RMGalleryView.h"
 
-@interface RMGalleryViewController : UIViewController
+@interface RMGalleryViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, readonly) RMGalleryView *galleryView;
 
 @property (nonatomic, assign) NSUInteger galleryIndex;
 
 @property (nonatomic, readonly) UITapGestureRecognizer *tapGestureRecognizer;
+
+/**
+ The navigation controller toolbar or a custom toolbar if there is no navigation controller.
+ **/
+@property (nonatomic, readonly) UIToolbar *toolbar;
 
 - (void)setBarsHidden:(BOOL)hidden animated:(BOOL)animated;
 
