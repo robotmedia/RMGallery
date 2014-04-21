@@ -9,6 +9,12 @@
 #import "RMGalleryTransition.h"
 #import "RMGalleryViewController.h"
 
+@interface UIView(RMGalleryUtils)
+
+@property (nonatomic, readonly) UIColor *rm_opaqueBackgroundColor;
+
+@end
+
 static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 {
     const CGFloat targetAspect = size.width / size.height;
@@ -181,12 +187,11 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     UIImageView *imageView = [self transitionImageViewForIndex:index];
     if (imageView)
     {
-        UIView *superview = imageView.superview;
-        return superview.backgroundColor;
+        return imageView.rm_opaqueBackgroundColor;
     }
-    return view.backgroundColor;
+    return view.rm_opaqueBackgroundColor;
 }
-
+                
 - (CGSize)estimatedImageSizeForIndex:(NSUInteger)index
 {
     if ([self.delegate respondsToSelector:@selector(galleryTransition:estimatedSizeForIndex:)])
@@ -242,6 +247,18 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     }
     
     return nil;
+}
+
+@end
+
+@implementation UIView(RMGalleryUtils)
+
+- (UIColor*)rm_opaqueBackgroundColor
+{
+    UIColor *color = self.backgroundColor;
+    if (CGColorGetAlpha(color.CGColor) > 0) return color;
+
+    return [self.superview rm_opaqueBackgroundColor];
 }
 
 @end
