@@ -123,7 +123,10 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                          
                          RMGalleryView *galleryView = galleryViewController.galleryView;
                          RMGalleryCell *galleryCell = [galleryView galleryCellAtIndex:galleryIndex];
-                         [galleryCell setImage:transitionImage inSize:estimatedImageSize];
+                         if (!galleryCell.image)
+                         { // Only set image if it wasn't already set in layoutIfNeeded
+                             [galleryCell setImage:transitionImage inSize:estimatedImageSize];
+                         }
                          
                          [transitionContext completeTransition:YES];
                      }];
