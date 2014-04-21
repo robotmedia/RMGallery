@@ -17,13 +17,22 @@
 
 @synthesize galleryIndex = _galleryIndex;
 
+- (id)init
+{
+    if (self = [super init])
+    {
+        _galleryView = [[RMGalleryView alloc] init];
+    }
+    return self;
+}
+
 #pragma mark UIViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _galleryView = [[RMGalleryView alloc] initWithFrame:self.view.bounds];
+    _galleryView.frame = self.view.bounds;
     _galleryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_galleryView];
     
