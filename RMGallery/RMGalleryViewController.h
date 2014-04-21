@@ -13,7 +13,7 @@
 
 @interface RMGalleryViewController : UIViewController<UIGestureRecognizerDelegate>
 
-@property (nonatomic, readonly) id<RMGalleryViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<RMGalleryViewControllerDelegate> delegate;
 
 @property (nonatomic, readonly) RMGalleryView *galleryView;
 
