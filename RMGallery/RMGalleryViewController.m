@@ -203,7 +203,6 @@
     }];
 }
 
-
 #pragma mark Utils
 
 + (BOOL)viewControllerBasedStatusBarAppearence

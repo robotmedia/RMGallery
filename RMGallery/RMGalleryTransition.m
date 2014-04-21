@@ -91,6 +91,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     [containerView addSubview:transitionView];
     
     const NSTimeInterval duration = [self transitionDuration:transitionContext];
+    const CGSize estimatedImageSize = [self estimatedImageSizeForIndex:galleryIndex];
     [UIView animateWithDuration:duration
                           delay:0
          usingSpringWithDamping:0.7
@@ -99,7 +100,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                      animations:^{
                          backgroundView.alpha = 1;
                          
-                         const CGRect transitionViewFinalFrame = RMCGRectAspectFit(transitionImage.size, containerView.bounds.size);
+                         const CGRect transitionViewFinalFrame = RMCGRectAspectFit(estimatedImageSize, containerView.bounds.size);
                          transitionView.frame = transitionViewFinalFrame;
                      }
                      completion:^(BOOL finished) {
@@ -116,8 +117,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
                          
                          RMGalleryView *galleryView = galleryViewController.galleryView;
                          RMGalleryCell *galleryCell = [galleryView galleryCellAtIndex:galleryIndex];
-                         const CGSize imageSize = [self estimatedImageSizeForIndex:galleryIndex];
-                         [galleryCell setImage:transitionImage inSize:imageSize];
+                         [galleryCell setImage:transitionImage inSize:estimatedImageSize];
                          
                          [transitionContext completeTransition:YES];
                      }];
