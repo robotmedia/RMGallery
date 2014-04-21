@@ -48,5 +48,10 @@
  */
 - (CGSize)galleryTransition:(RMGalleryTransition*)transition estimatedSizeForIndex:(NSUInteger)index;
 
-@end
+/**
+ Returns the color to be used to cover the original frame of the transition image.
+ @discussion This method takes precedence over the background color of the image view returned in galleryTransition:transitionImageViewForIndex:.
+ */
+- (UIColor*)galleryTransition:(RMGalleryTransition*)transition coverColorForIndex:(NSUInteger)index;
 
+@end

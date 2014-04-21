@@ -184,6 +184,12 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 
 - (UIColor*)coverColorForIndex:(NSUInteger)index inView:(UIView*)view
 {
+    if ([self.delegate respondsToSelector:@selector(galleryTransition:coverColorForIndex:)])
+    {
+        UIColor *color = [self.delegate galleryTransition:self coverColorForIndex:index];
+        if (color) return color;
+    }
+    
     UIImageView *imageView = [self transitionImageViewForIndex:index];
     if (imageView)
     {
