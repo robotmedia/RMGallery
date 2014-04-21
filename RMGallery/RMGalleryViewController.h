@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "RMGalleryView.h"
 
+@protocol RMGalleryViewControllerDelegate;
+
 @interface RMGalleryViewController : UIViewController<UIGestureRecognizerDelegate>
+
+@property (nonatomic, readonly) id<RMGalleryViewControllerDelegate> delegate;
 
 @property (nonatomic, readonly) RMGalleryView *galleryView;
 
@@ -39,5 +43,15 @@
 @interface RMGalleryViewController(Sublassing)
 
 - (void)animatingBarsHidden:(BOOL)hidden;
+
+@end
+
+@protocol RMGalleryViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)galleryViewController:(RMGalleryViewController*)galleryViewController willDismissViewControllerAnimated:(BOOL)animated;
+
+- (void)galleryViewController:(RMGalleryViewController*)galleryViewController didDismissViewControllerAnimated:(BOOL)animated;
 
 @end

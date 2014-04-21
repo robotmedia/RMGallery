@@ -97,7 +97,7 @@
     }
     else
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissGalleryController];
     }
 }
 
@@ -186,6 +186,23 @@
         _galleryIndex = galleryIndex;
     }
 }
+
+#pragma mark Private
+
+- (void)dismissGalleryController
+{
+    if ([self.delegate respondsToSelector:@selector(galleryViewController:willDismissViewControllerAnimated:)])
+    {
+        [self.delegate galleryViewController:self willDismissViewControllerAnimated:YES];
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate respondsToSelector:@selector(galleryViewController:didDismissViewControllerAnimated:)])
+        {
+            [self.delegate galleryViewController:self didDismissViewControllerAnimated:YES];
+        }
+    }];
+}
+
 
 #pragma mark Utils
 
