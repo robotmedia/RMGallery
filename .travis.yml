@@ -1,0 +1,7 @@
+language: objective-c
+before_script:
+  - brew update
+  - brew upgrade xctool
+script: 
+  - xctool -project RMGallery.xcodeproj -scheme 'RMGallery' -configuration Release -sdk iphonesimulator test
+  - xctool -project RMGallery.xcodeproj -scheme 'RMGalleryDemo' -configuration Release -sdk iphonesimulator
