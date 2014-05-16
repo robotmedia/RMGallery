@@ -1,5 +1,6 @@
 RMGallery
 =========
+[![Build Status](https://travis-ci.org/robotmedia/RMGallery.png)](https://travis-ci.org/robotmedia/RMGallery)
 
 A modular and lightweight gallery for iOS.
 
