@@ -33,6 +33,8 @@
 		8757EE6518DC89E4005BBC8E /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6218DC89E4005BBC8E /* photo3.jpg */; };
 		8757EE6A18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
 		8757EE6B18DC94D0005BBC8E /* UIImage+RMGalleryDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */; };
+		87A180A71926627A000ECEC5 /* RMGalleryCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A180A61926627A000ECEC5 /* RMGalleryCellTests.m */; };
+		87A180AB1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A180AA1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m */; };
 		87A5FE5218FED8F400237AF5 /* RMDemoOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */; };
 		87A5FE5318FED8F400237AF5 /* RMDemoOriginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */; };
 		87A5FE5A18FEDA6900237AF5 /* thumbnail1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5418FEDA6900237AF5 /* thumbnail1.jpg */; };
@@ -98,6 +100,9 @@
 		8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RMGalleryDemo.h"; sourceTree = "<group>"; };
 		8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RMGalleryDemo.m"; sourceTree = "<group>"; };
 		87A180A319264E48000ECEC5 /* RMGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGallery.h; sourceTree = "<group>"; };
+		87A180A61926627A000ECEC5 /* RMGalleryCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryCellTests.m; sourceTree = "<group>"; };
+		87A180A91926639E000ECEC5 /* UIImage+RMGalleryTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RMGalleryTestUtils.h"; sourceTree = "<group>"; };
+		87A180AA1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RMGalleryTestUtils.m"; sourceTree = "<group>"; };
 		87A5FE4F18FED8F400237AF5 /* RMDemoOriginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDemoOriginViewController.h; sourceTree = "<group>"; };
 		87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDemoOriginViewController.m; sourceTree = "<group>"; };
 		87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMDemoOriginViewController.xib; sourceTree = "<group>"; };
@@ -195,7 +200,9 @@
 		8757EE1118DC8466005BBC8E /* RMGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
+				87A180A819266384000ECEC5 /* Utils */,
 				8757EE1218DC8466005BBC8E /* Supporting Files */,
+				87A180A61926627A000ECEC5 /* RMGalleryCellTests.m */,
 			);
 			path = RMGalleryTests;
 			sourceTree = "<group>";
@@ -253,6 +260,15 @@
 				87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */,
 			);
 			name = Photos;
+			sourceTree = "<group>";
+		};
+		87A180A819266384000ECEC5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				87A180A91926639E000ECEC5 /* UIImage+RMGalleryTestUtils.h */,
+				87A180AA1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +407,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87A180A71926627A000ECEC5 /* RMGalleryCellTests.m in Sources */,
+				87A180AB1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +531,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/RMGallery.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMGallery/RMGallery-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -525,7 +543,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/RMGallery.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMGallery/RMGallery-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -542,7 +560,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMGallery/RMGallery-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -564,7 +582,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMGallery/RMGallery-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "RMGalleryTests/RMGalleryTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
