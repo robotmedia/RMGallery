@@ -241,7 +241,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
         return [self.delegate galleryTransition:self transitionRectForIndex:index inView:view];
     }
     UIImageView *imageView = [self transitionImageViewForIndex:index];
-    return imageView ? imageView.frame : CGRectZero;
+    return imageView ? [view convertRect:imageView.bounds fromView:imageView] : CGRectZero;
 }
 
 - (RMGalleryViewController*)galleryViewControllerFromViewController:(UIViewController*)viewController
