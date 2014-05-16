@@ -17,19 +17,29 @@ RMGallery is a Photos-like gallery with no dependencies that can be used at view
 * Provides view controller transitions.
 * Modular and extensible design.
 
+##Installation
+
+Using [CocoaPods](http://cocoapods.org/):
+
+```ruby
+pod 'RMGallery', '~> 0.1'
+```
+
+Alternatively, you can simply add the files from the [RMGallery](https://github.com/robotmedia/RMGallery/tree/master/RMGallery) directory to your project.
+
 ##Classes
 
 RMGallery handles the boilerplate of a gallery UI so you can focus in theming and implementing your custom layout. RMGallery can be used at cell, view or view controller level, each one with its own corresponding class.
 
 ###RMGalleryCell
 
-`RMGalleryCell` is a collection view cell that displays an image with zoom and panning. It keeps the image centered when smaller than the cell and sets appropiate values for the zoom scale. Zoom can be toggled on and off at specific points.
+[`RMGalleryCell`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryCell.h) is a collection view cell that displays an image with zoom and panning. It keeps the image centered when smaller than the cell and sets appropiate values for the zoom scale. Zoom can be toggled on and off at specific points.
 
 The cell also has its own activity indicator view, which is animated by `RMGalleryView` while it waits for the image.
 
 ###RMGalleryView
 
-`RMGalleryView` is a collection view of gallery cells in a flow layout. It has a data source (`RMGalleryViewDataSource`) that is responsible for providing images and a delegate (`RMGalleryViewDelegate`) that is notified of index changes. 
+[`RMGalleryView`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryView.h)  is a collection view of gallery cells in a flow layout. It has a data source (`RMGalleryViewDataSource`) that is responsible for providing images and a delegate (`RMGalleryViewDelegate`) that is notified of index changes. 
 
 The gallery view provides gestures for zooming (double tap, pinch) and browse forward/back (swipes). All gesture recognizers are exposed so you can disable or tweak them as needed.
 
@@ -41,9 +51,13 @@ To display a full-screen gallery it's best to use `RMGalleryViewController`. If 
 
 ###RMGalleryViewController
 
-`RMGalleryViewController` is a view controller that manages a gallery view and, much like its counterparts `UITableViewController` and `UICollectionViewController`, is designed to be subclassed.
+[`RMGalleryViewController`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryViewController.h) is a view controller that manages a gallery view and, much like its counterparts `UITableViewController` and `UICollectionViewController`, is designed to be subclassed.
 
 The gallery view controller gracefully handles device rotation, toggles the visibility of the status bar, navigation bar and toolbar and notifies of its own dismissal.
+
+###RMGalleryTransition
+
+[`RMGalleryTransition`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryTransition.h) is a default view controller transition to go from a thumnail to the gallery view controller and back, as shown in the animation above. To use it you only need to to provide the position and image of the originating thumbnail (typically, an `UIImageView`).
 
 ##Requirements
 
