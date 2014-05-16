@@ -26,7 +26,6 @@
 		8757EE5918DC8846005BBC8E /* RMGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5318DC8846005BBC8E /* RMGalleryView.m */; };
 		8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */; };
 		8757EE5B18DC8846005BBC8E /* RMGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */; };
-		8757EE5E18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */; };
 		8757EE5F18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8757EE5D18DC897A005BBC8E /* RMDemoGalleryViewController.m */; };
 		8757EE6318DC89E4005BBC8E /* photo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6018DC89E4005BBC8E /* photo1.jpg */; };
 		8757EE6418DC89E4005BBC8E /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8757EE6118DC89E4005BBC8E /* photo2.jpg */; };
@@ -394,7 +393,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8757EE5E18DC897A005BBC8E /* RMDemoGalleryViewController.m in Sources */,
 				8757EE5618DC8846005BBC8E /* RMGalleryCell.m in Sources */,
 				8757EE5818DC8846005BBC8E /* RMGalleryView.m in Sources */,
 				8757EE5A18DC8846005BBC8E /* RMGalleryViewController.m in Sources */,
@@ -553,7 +551,7 @@
 		8757EE1F18DC8466005BBC8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RMGalleryDemo.app/RMGalleryDemo";
+				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -575,7 +573,7 @@
 		8757EE2018DC8466005BBC8E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RMGalleryDemo.app/RMGalleryDemo";
+				BUNDLE_LOADER = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
