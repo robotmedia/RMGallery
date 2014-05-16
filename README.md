@@ -20,11 +20,11 @@ RMGallery is a Photos-like gallery with no dependencies that can be used at view
 * Asynchronous image loading.
 * Keeps images centered when smaller than the view.
 
-Sample photos:
+##RMGalleryViewController
 
-* "[Macba](https://www.flickr.com/photos/slapbcn/1832096812)" by Ramon Llorensi
-* "[Pompidou Museum](https://www.flickr.com/photos/bobjagendorf/5965149738)" by Bob Jagendorf
-* "[Tate Modern](https://www.flickr.com/photos/aguichard/13009663094)" by Aurelien Guichard
+`RMGalleryViewController` is a view controller that manages a gallery view and is designed to be subclassed. Think of it as a `UICollectionViewController` equivalent. Typically, you will use your own `RMGalleryViewController` subclass instead of `RMGalleryViewController` directly.
+
+The gallery view controller gracefully handles device rotation, toggles the visibility of the status bar, navigation bar and toolbar and notifies of its own dismissal.
 
 ##Requirements
 
@@ -49,3 +49,9 @@ RMGallery is in initial development and its public API should not be considered 
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
+
+Sample photos:
+
+* "[Macba](https://www.flickr.com/photos/slapbcn/1832096812)" by Ramon Llorensi
+* "[Pompidou Museum](https://www.flickr.com/photos/bobjagendorf/5965149738)" by Bob Jagendorf
+* "[Tate Modern](https://www.flickr.com/photos/aguichard/13009663094)" by Aurelien Guichard
