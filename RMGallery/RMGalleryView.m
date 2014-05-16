@@ -252,7 +252,7 @@ static NSString *const CellIdentifier = @"Cell";
     
     RMGalleryCell *cell = (RMGalleryCell*)[self cellForItemAtIndexPath:indexPath];
     const CGPoint cellPoint = [cell convertPoint:point fromView:self];
-    [cell doubleTapAtPoint:cellPoint];
+    [cell toggleZoomAtPoint:cellPoint];
 }
 
 #pragma mark Collection View delegate forwarding

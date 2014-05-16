@@ -22,6 +22,9 @@
 
 @protocol RMGalleryTransitionDelegate;
 
+/**
+ Provides a transition between a view controller the displays an image and a gallery view controller.
+ */
 @interface RMGalleryTransition : NSObject <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, weak) id<RMGalleryTransitionDelegate> delegate;
@@ -37,7 +40,8 @@
 @end
 
 /** 
- Either galleryTransition:transitionImageViewForIndex: or galleryTransition:transitionImageForIndex: and galleryTransition:transitionRectForIndex: must be implemented.
+ Provides the origin and destination of the transition in the view controller that presents the gallery view controller.
+ @discussion When not using the convenience image view constructor, either @c galleryTransition:transitionImageViewForIndex: or @c galleryTransition:transitionImageForIndex: and @c galleryTransition:transitionRectForIndex: must be implemented.
  **/
 @protocol RMGalleryTransitionDelegate <NSObject>
 
@@ -51,14 +55,14 @@
 
 /**
  Returns the image that will be used as the origin of the transition.
- @discussion The transition image will typically be a thumbnail. If the transition image is different than the final image you must implement galleryTransition:estimatedSizeForIndex: to avoid graphical glitches.
+ @discussion The transition image will typically be a thumbnail. If the transition image is different than the final image you must implement @c galleryTransition:estimatedSizeForIndex: to avoid graphical glitches.
  @discussion This method takes precedence over galleryTransition:transitionImageViewForIndex:.
  */
 - (UIImage*)galleryTransition:(RMGalleryTransition*)transition transitionImageForIndex:(NSUInteger)index;
 
 /**
  Returns the frame in the given view that will be used as the origin or destination of the transition.
- @discussion This method takes precedence over galleryTransition:transitionImageViewForIndex:.
+ @discussion This method takes precedence over @c galleryTransition:transitionImageViewForIndex:.
  */
 - (CGRect)galleryTransition:(RMGalleryTransition*)transition transitionRectForIndex:(NSUInteger)index inView:(UIView*)view;
 
@@ -70,7 +74,7 @@
 
 /**
  Returns the color to be used to cover the original frame of the transition image.
- @discussion This method takes precedence over the background color of the image view returned in galleryTransition:transitionImageViewForIndex:.
+ @discussion This method takes precedence over the background color of the image view returned in @c galleryTransition:transitionImageViewForIndex:.
  */
 - (UIColor*)galleryTransition:(RMGalleryTransition*)transition coverColorForIndex:(NSUInteger)index;
 

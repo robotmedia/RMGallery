@@ -119,7 +119,7 @@
 
 #pragma mark Actions
 
-- (void)doubleTapAtPoint:(CGPoint)point
+- (void)toggleZoomAtPoint:(CGPoint)point
 {
     const CGPoint imagePoint = [_imageView convertPoint:point fromView:self];
     CGFloat minimumZoomScale = _scrollView.minimumZoomScale;
