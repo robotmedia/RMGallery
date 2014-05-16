@@ -97,6 +97,7 @@
 		8757EE6218DC89E4005BBC8E /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo3.jpg; sourceTree = "<group>"; };
 		8757EE6818DC94D0005BBC8E /* UIImage+RMGalleryDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RMGalleryDemo.h"; sourceTree = "<group>"; };
 		8757EE6918DC94D0005BBC8E /* UIImage+RMGalleryDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RMGalleryDemo.m"; sourceTree = "<group>"; };
+		87A180A319264E48000ECEC5 /* RMGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGallery.h; sourceTree = "<group>"; };
 		87A5FE4F18FED8F400237AF5 /* RMDemoOriginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDemoOriginViewController.h; sourceTree = "<group>"; };
 		87A5FE5018FED8F400237AF5 /* RMDemoOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDemoOriginViewController.m; sourceTree = "<group>"; };
 		87A5FE5118FED8F400237AF5 /* RMDemoOriginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMDemoOriginViewController.xib; sourceTree = "<group>"; };
@@ -186,6 +187,7 @@
 				8757EE5518DC8846005BBC8E /* RMGalleryViewController.m */,
 				87A5FE6018FEDC7700237AF5 /* RMGalleryTransition.h */,
 				87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */,
+				87A180A319264E48000ECEC5 /* RMGallery.h */,
 			);
 			path = RMGallery;
 			sourceTree = "<group>";
