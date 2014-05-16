@@ -54,7 +54,18 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
 
 @end
 
-@implementation RMGalleryTransition
+@implementation RMGalleryTransition {
+    UIImageView *_imageView;
+}
+
+- (id)initWithImageView:(UIImageView*)imageView
+{
+    if (self = [super init])
+    {
+        _imageView = imageView;
+    }
+    return self;
+}
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
@@ -243,7 +254,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     {
         return [self.delegate galleryTransition:self transitionImageViewForIndex:index];
     }
-    return nil;
+    return _imageView;
 }
 
 - (CGRect)transitionRectForIndex:(NSUInteger)index inView:(UIView*)view

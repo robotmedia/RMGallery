@@ -26,6 +26,14 @@
 
 @property (nonatomic, weak) id<RMGalleryTransitionDelegate> delegate;
 
+/**
+ Returns a transition with the given image view as target.
+ @param imageView The image view to use as the origin or destination of the transition.
+ @return An initialized transition or nil if the object couldn't be created.
+ @discussion This is a convenience initializer for simple transitions that might not need delegate.
+ */
+- (id)initWithImageView:(UIImageView*)imageView;
+
 @end
 
 /** 
