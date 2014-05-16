@@ -1,8 +1,23 @@
 RMGallery
 =========
 
+A modular and lightweight gallery for iOS.
+
 ![Demo](RMGalleryDemo/demo.gif)
 
+RMGallery is a Photos-like gallery with no dependencies that can be used at view controller, view or cell level. It supports asynchronous image loading, view controller transitions, gestures and zooming.
+
+##Features
+
+* Supports landscape and portrait orientations and rotations.
+* Tap to toggle bars when used in navigation controller or to dismiss when presented modally.
+* Manages a custom toolbar when presented modally.
+* Swipe to move forward or backward.
+* Double tap or pinch to zoom.
+* Pan images when zoomed.
+* View controller transitions.
+* Asynchronous image loading.
+* Keeps images centered when smaller than the view.
 
 Sample photos:
 
