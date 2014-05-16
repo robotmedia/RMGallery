@@ -105,9 +105,9 @@
     const CGFloat yScale = viewSize.height / imageSize.height;
     const CGFloat minScale = MIN(xScale, yScale);
     
-	_scrollView.minimumZoomScale = minScale;
+	_scrollView.minimumZoomScale = MIN(minScale, 1);
     
-    _scrollView.zoomScale = xScale > 1 && yScale > 1 ? 1 : minScale;
+    _scrollView.zoomScale = _scrollView.minimumZoomScale;
     
     _scrollView.contentOffset = CGPointZero; // Will be centered
 }
