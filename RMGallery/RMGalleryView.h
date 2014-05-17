@@ -128,7 +128,7 @@
  @param galleryView The collection view requesting this information.
  @return The number of images.
  */
-- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)image;
+- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)galleryView;
 
 @end
 

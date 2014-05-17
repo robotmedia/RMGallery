@@ -61,7 +61,7 @@
     });
 }
 
-- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)image
+- (NSUInteger)numberOfImagesInGalleryView:(RMGalleryView*)galleryView
 {
     return 3;
 }
