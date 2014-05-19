@@ -51,7 +51,7 @@
     // Typically images will be loaded asynchonously. To simulate this we resize the image in background.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-        NSString *name = [NSString stringWithFormat:@"photo%lu.jpg", index + 1];
+        NSString *name = [NSString stringWithFormat:@"photo%ld.jpg", (long)index + 1];
         UIImage *image = [UIImage imageNamed:name];
         image = [image demo_imageByScalingByFactor:0.75];
 
@@ -92,7 +92,7 @@
 - (void)setTitleForIndex:(NSUInteger)index
 {
     const NSUInteger count = [self numberOfImagesInGalleryView:self.galleryView];
-    self.title = [NSString stringWithFormat:@"%lu of %lu", index + 1, count];
+    self.title = [NSString stringWithFormat:@"%ld of %ld", (long)index + 1, (long)count];
 }
 
 @end
