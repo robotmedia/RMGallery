@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/robotmedia/RMGallery'
   s.author = 'Hermes Pique'
   s.social_media_url = 'https://twitter.com/robotmedia'
+  s.screenshot  = 'https://raw.githubusercontent.com/robotmedia/RMGallery/master/Assets/screenshot.png'
   s.source = { :git => 'https://github.com/robotmedia/RMGallery.git', :tag => "v#{s.version}" }
   s.platform = :ios, '7.0'
   s.requires_arc = true
