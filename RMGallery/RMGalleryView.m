@@ -51,42 +51,74 @@ static NSString *const CellIdentifier = @"Cell";
 
 @synthesize galleryIndex = _galleryIndex;
 
+- (id)init
+{
+    _imageFlowLayout = [RMGalleryViewLayout new];
+    _imageFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    return [self initWithFrame:CGRectZero collectionViewLayout:_imageFlowLayout];
+}
+
+- (id)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
+{
+    self = [super initWithFrame:frame collectionViewLayout:layout];
+    if (self)
+    {
+        [self initHelper];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     _imageFlowLayout = [RMGalleryViewLayout new];
     _imageFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self = [super initWithFrame:frame collectionViewLayout:_imageFlowLayout];
+    return [self initWithFrame:frame collectionViewLayout:_imageFlowLayout];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
     if (self)
     {
-        _galleryIndex = 0;
-        
-        self.showsHorizontalScrollIndicator = NO;
-        self.showsVerticalScrollIndicator = NO;
-        self.dataSource = self;
-        [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
-        
-        // Apparently, UICollectionView or one of its subclasses acts as UIGestureRecognizerDelegate. We use this inner class to avoid conflicts.
-        _swipeDelegate = [[RMGalleryViewSwipeGRDelegate alloc] initWithGalleryView:self];
-        
-        _swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
-        _swipeLeftGestureRecognizer.delegate = _swipeDelegate;
-        _swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        [self addGestureRecognizer:_swipeLeftGestureRecognizer];
-        [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeLeftGestureRecognizer];
-
-        _swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
-        _swipeRightGestureRecognizer.delegate = _swipeDelegate;
-        _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        [self addGestureRecognizer:_swipeRightGestureRecognizer];
-        [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeRightGestureRecognizer];
-        
-        _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
-        _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-        [self addGestureRecognizer:_doubleTapGestureRecognizer];
-
-        [super setDelegate:self];
+        _imageFlowLayout = [RMGalleryViewLayout new];
+        _imageFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        self.collectionViewLayout = _imageFlowLayout;
+        [self initHelper];
     }
     return self;
+}
+
+- (void)initHelper
+{
+    self.collectionViewLayout = _imageFlowLayout;
+
+    _galleryIndex = 0;
+    
+    self.showsHorizontalScrollIndicator = NO;
+    self.showsVerticalScrollIndicator = NO;
+    self.dataSource = self;
+    [self registerClass:RMGalleryCell.class forCellWithReuseIdentifier:CellIdentifier];
+    
+    // Apparently, UICollectionView or one of its subclasses acts as UIGestureRecognizerDelegate. We use this inner class to avoid conflicts.
+    _swipeDelegate = [[RMGalleryViewSwipeGRDelegate alloc] initWithGalleryView:self];
+    
+    _swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGesture:)];
+    _swipeLeftGestureRecognizer.delegate = _swipeDelegate;
+    _swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:_swipeLeftGestureRecognizer];
+    [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeLeftGestureRecognizer];
+    
+    _swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGesture:)];
+    _swipeRightGestureRecognizer.delegate = _swipeDelegate;
+    _swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:_swipeRightGestureRecognizer];
+    [self.panGestureRecognizer requireGestureRecognizerToFail:_swipeRightGestureRecognizer];
+    
+    _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapGesture:)];
+    _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:_doubleTapGestureRecognizer];
+    
+    [super setDelegate:self];
 }
 
 #pragma mark UICollectionViewDataSource

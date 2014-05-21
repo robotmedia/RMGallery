@@ -33,7 +33,25 @@
 {
     if (self = [super init])
     {
-        _galleryView = [[RMGalleryView alloc] init];
+        _galleryView = [RMGalleryView new];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        _galleryView = [RMGalleryView new];
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+    {
+        _galleryView = [RMGalleryView new];
     }
     return self;
 }
