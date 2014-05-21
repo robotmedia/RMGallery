@@ -90,8 +90,6 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)initHelper
 {
-    self.collectionViewLayout = _imageFlowLayout;
-
     _galleryIndex = 0;
     
     self.showsHorizontalScrollIndicator = NO;

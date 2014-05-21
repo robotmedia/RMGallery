@@ -44,6 +44,8 @@
 		87A5FE5F18FEDA6900237AF5 /* thumbnail3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */; };
 		87A5FE6218FEDC7700237AF5 /* RMGalleryTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */; };
 		87A5FE6318FEDD6900237AF5 /* RMGalleryTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */; };
+		87EB8477192CDE7900850476 /* RMGalleryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB8476192CDE7900850476 /* RMGalleryViewControllerTests.m */; };
+		87EB8479192CDF6400850476 /* RMGalleryViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 87EB8478192CDF6400850476 /* RMGalleryViewTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,8 @@
 		87A5FE5918FEDA6900237AF5 /* thumbnail3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "thumbnail3@2x.jpg"; sourceTree = "<group>"; };
 		87A5FE6018FEDC7700237AF5 /* RMGalleryTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMGalleryTransition.h; sourceTree = "<group>"; };
 		87A5FE6118FEDC7700237AF5 /* RMGalleryTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryTransition.m; sourceTree = "<group>"; };
+		87EB8476192CDE7900850476 /* RMGalleryViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryViewControllerTests.m; sourceTree = "<group>"; };
+		87EB8478192CDF6400850476 /* RMGalleryViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMGalleryViewTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,9 +203,11 @@
 		8757EE1118DC8466005BBC8E /* RMGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
-				87A180A819266384000ECEC5 /* Utils */,
-				8757EE1218DC8466005BBC8E /* Supporting Files */,
 				87A180A61926627A000ECEC5 /* RMGalleryCellTests.m */,
+				87EB8476192CDE7900850476 /* RMGalleryViewControllerTests.m */,
+				87EB8478192CDF6400850476 /* RMGalleryViewTests.m */,
+				8757EE1218DC8466005BBC8E /* Supporting Files */,
+				87A180A819266384000ECEC5 /* Utils */,
 			);
 			path = RMGalleryTests;
 			sourceTree = "<group>";
@@ -405,6 +411,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87EB8479192CDF6400850476 /* RMGalleryViewTests.m in Sources */,
+				87EB8477192CDE7900850476 /* RMGalleryViewControllerTests.m in Sources */,
 				87A180A71926627A000ECEC5 /* RMGalleryCellTests.m in Sources */,
 				87A180AB1926639E000ECEC5 /* UIImage+RMGalleryTestUtils.m in Sources */,
 			);
