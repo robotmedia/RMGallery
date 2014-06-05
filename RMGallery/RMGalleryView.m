@@ -204,6 +204,9 @@ static NSString *const CellIdentifier = @"Cell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (!self.scrollEnabled) {
+        return;
+    }
     const NSUInteger index = [_imageFlowLayout indexForOffset:scrollView.contentOffset];
     if (index != _galleryIndex)
     {
