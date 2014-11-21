@@ -37,6 +37,8 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        _imageContentMode = UIViewContentModeScaleAspectFit;
+
         _scrollView = [[RMCenteringScrollView alloc] initWithFrame:self.bounds];
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -50,6 +52,7 @@
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _imageView.clipsToBounds = YES;
+        _imageView.contentMode = _imageContentMode;
         [_scrollView addSubview:_imageView];
         
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -84,6 +87,11 @@
 }
 
 #pragma mark Public
+
+- (void)setImageContentMode:(UIViewContentMode)imageContentMode {
+    _imageContentMode = imageContentMode;
+    _imageView.contentMode = imageContentMode;
+}
 
 - (void)setImage:(UIImage *)image
 {

@@ -75,6 +75,12 @@
 @property (nonatomic, assign) NSUInteger galleryIndex;
 
 /**
+ The content mode to apply to image cells.
+ @discussion This is by default UIViewContentModeScaleAspectFit, but is provided for customization.
+ */
+@property (nonatomic, assign) UIViewContentMode imageContentMode;
+
+/**
  Set the gallery index, optionally animating the transition.
  @param galleryIndex The index to be set.
  @param animated @c YES to animate the index change, @c NO otherwise.

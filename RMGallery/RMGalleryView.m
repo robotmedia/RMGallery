@@ -131,6 +131,7 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
     [cell.activityIndicatorView startAnimating];
+    cell.imageContentMode = self.imageContentMode;
     __block BOOL sync = YES;
     [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
         // Check if cell was reused
@@ -223,6 +224,13 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 #pragma mark Managing state
+
+- (void)setImageContentMode:(UIViewContentMode)imageContentMode {
+    if (_imageContentMode == imageContentMode)
+        return;
+    _imageContentMode = imageContentMode;
+    [self reloadData];
+}
 
 - (NSUInteger)galleryIndex
 {

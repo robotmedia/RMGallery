@@ -41,6 +41,11 @@
 @property (nonatomic, strong) UIImage *image;
 
 /**
+ Content mode of the image view.
+ */
+@property (nonatomic, assign) UIViewContentMode imageContentMode;
+
+/**
  Toggles zoom from the given point.
  @param point The point in which to toggle zoom.
  */
