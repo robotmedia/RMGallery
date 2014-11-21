@@ -139,7 +139,7 @@ static NSString *const CellIdentifier = @"Cell";
         if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
-        cell.image = image;
+        [cell setImage:image inSize:image.size allowZoom:self.allowZoom];
     }];
     sync = NO;
     return cell;
@@ -224,6 +224,13 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 #pragma mark Managing state
+
+- (void)setAllowZoom:(BOOL)allowZoom {
+    if (_allowZoom == allowZoom)
+        return;
+    _allowZoom = allowZoom;
+    [self reloadData];
+}
 
 - (void)setImageContentMode:(UIViewContentMode)imageContentMode {
     if (_imageContentMode == imageContentMode)

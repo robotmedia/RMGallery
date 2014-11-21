@@ -75,6 +75,11 @@
 @property (nonatomic, assign) NSUInteger galleryIndex;
 
 /**
+ Whether or not to permit zooming.
+ */
+@property (nonatomic, assign) BOOL allowZoom;
+
+/**
  The content mode to apply to image cells.
  @discussion This is by default UIViewContentModeScaleAspectFit, but is provided for customization.
  */
