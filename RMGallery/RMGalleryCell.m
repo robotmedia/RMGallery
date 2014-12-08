@@ -52,17 +52,10 @@
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = _imageContentMode;
         [_scrollView addSubview:_imageView];
-        
+
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         _activityIndicatorView.hidesWhenStopped = YES;
         [self.contentView addSubview:_activityIndicatorView];
-        
-        {
-            NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_activityIndicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-            NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_activityIndicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-            [self.contentView addConstraints:@[centerX, centerY]];
-        }
     }
     return self;
 }
@@ -75,6 +68,11 @@
     {
         self.image = image;
     }
+
+    CGRect rect = self.activityIndicatorView.frame;
+    rect.origin.x = CGRectGetMidX(self.contentView.bounds) - (CGRectGetWidth(rect) / 2.f);
+    rect.origin.y = CGRectGetMidY(self.contentView.bounds) - (CGRectGetHeight(rect) / 2.f);
+    self.activityIndicatorView.frame = rect;
 }
 
 #pragma mark UICollectionViewCell
@@ -124,7 +122,7 @@
     }
     _imageView.image = image;
 
-    _scrollView.zoomScale = _scrollView.minimumZoomScale;    
+    _scrollView.zoomScale = _scrollView.minimumZoomScale;
     _scrollView.contentOffset = CGPointZero; // Will be centered
 }
 
@@ -139,10 +137,10 @@
 {
     const CGPoint imagePoint = [_imageView convertPoint:point fromView:self];
     CGFloat minimumZoomScale = _scrollView.minimumZoomScale;
-	if (_scrollView.zoomScale > minimumZoomScale)
+    if (_scrollView.zoomScale > minimumZoomScale)
     { // Zoom out
-		[_scrollView setZoomScale:minimumZoomScale animated:YES];
-	}
+        [_scrollView setZoomScale:minimumZoomScale animated:YES];
+    }
     else
     { // Zoom in
         const CGFloat maximumZoomScale = _scrollView.maximumZoomScale;
@@ -151,7 +149,7 @@
         const CGFloat height = self.bounds.size.height / newZoomScale;
         const CGRect zoomRect = CGRectMake(imagePoint.x - width / 2, imagePoint.x - height / 2, width, height);
         [_scrollView zoomToRect:zoomRect animated:YES];
-	}
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -169,17 +167,17 @@
 {
     CGSize contentSize = self.contentSize;
     CGSize scrollViewSize = self.bounds.size;
-    
+
     if (contentSize.width < scrollViewSize.width)
     {
         contentOffset.x = -(scrollViewSize.width - contentSize.width) / 2.0;
     }
-    
+
     if (contentSize.height < scrollViewSize.height)
     {
         contentOffset.y = -(scrollViewSize.height - contentSize.height) / 2.0;
     }
-
+    
     [super setContentOffset:contentOffset];
 }
 
