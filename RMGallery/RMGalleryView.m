@@ -131,6 +131,7 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
     [cell.activityIndicatorView startAnimating];
+    cell.imageContentMode = self.imageContentMode;
     __block BOOL sync = YES;
     [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
         // Check if cell was reused
@@ -138,7 +139,7 @@ static NSString *const CellIdentifier = @"Cell";
         if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
-        cell.image = image;
+        [cell setImage:image inSize:image.size allowZoom:self.allowZoom];
     }];
     sync = NO;
     return cell;
@@ -223,6 +224,20 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 #pragma mark Managing state
+
+- (void)setAllowZoom:(BOOL)allowZoom {
+    if (_allowZoom == allowZoom)
+        return;
+    _allowZoom = allowZoom;
+    [self reloadData];
+}
+
+- (void)setImageContentMode:(UIViewContentMode)imageContentMode {
+    if (_imageContentMode == imageContentMode)
+        return;
+    _imageContentMode = imageContentMode;
+    [self reloadData];
+}
 
 - (NSUInteger)galleryIndex
 {
