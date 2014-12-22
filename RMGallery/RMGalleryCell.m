@@ -121,6 +121,11 @@
         _scrollView.minimumZoomScale = 1.0f;
     }
     _imageView.image = image;
+    _imageView.alpha = 0.0f;
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         _imageView.alpha = 1.0f;
+                     }];
 
     _scrollView.zoomScale = _scrollView.minimumZoomScale;
     _scrollView.contentOffset = CGPointZero; // Will be centered
