@@ -157,4 +157,16 @@
  */
 - (void)galleryView:(RMGalleryView*)galleryView didChangeIndex:(NSUInteger)index;
 
+/**
+ Notifies the delegate that the gallery view gesture recognizer swiped left.
+ @param galleryView The gallery view.
+ */
+- (void)galleryViewDidSwipeLeft:(RMGalleryView*)galleryView;
+
+/**
+ Notifies the delegate that the gallery view gesture recognizer swiped right.
+ @param galleryView The gallery view.
+ */
+- (void)galleryViewDidSwipeRight:(RMGalleryView*)galleryView;
+
 @end
