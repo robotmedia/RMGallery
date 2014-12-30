@@ -156,11 +156,19 @@ static NSString *const CellIdentifier = @"Cell";
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     [self showNext];
+    if ([self.galleryDelegate respondsToSelector:@selector(galleryViewDidSwipeLeft:)])
+    {
+        [self.galleryDelegate galleryViewDidSwipeLeft:self];
+    }
 }
 
 - (void)swipeRightGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     [self showPrevious];
+    if ([self.galleryDelegate respondsToSelector:@selector(galleryViewDidSwipeRight:)])
+    {
+        [self.galleryDelegate galleryViewDidSwipeRight:self];
+    }
 }
 
 #pragma mark UICollectionViewDelegate (Paging)
