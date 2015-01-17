@@ -37,7 +37,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        _imageContentMode = UIViewContentModeScaleAspectFit;
+        _imageContentMode = UIViewContentModeScaleAspectFill;
 
         _scrollView = [[RMCenteringScrollView alloc] initWithFrame:self.bounds];
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
