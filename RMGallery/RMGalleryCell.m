@@ -30,6 +30,10 @@
 
 @end
 
+@interface RMGalleryCell ()
+@property (nonatomic, assign) BOOL allowZoom;
+@end
+
 @implementation RMGalleryCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -91,13 +95,15 @@
 
 - (void)setImage:(UIImage *)image
 {
-    [self setImage:image inSize:image.size allowZoom:YES];
+    [self setImage:image inSize:image.size allowZoom:self.allowZoom];
 }
 
 - (void)setImage:(UIImage *)image inSize:(CGSize)imageSize allowZoom:(BOOL)allowZoom
 {
     _scrollView.minimumZoomScale = 1;
     _scrollView.zoomScale = 1;
+
+    self.allowZoom = allowZoom;
 
     if (allowZoom) {
         static const CGFloat MaxScale = 1.5;
