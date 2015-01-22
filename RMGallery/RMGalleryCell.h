@@ -58,6 +58,6 @@
  @param allowZoom Whether or not to allow zooming.
  @discussion Use this method for placeholder thumbnails that are smaller than the final image.
  */
-- (void)setImage:(UIImage *)image inSize:(CGSize)size allowZoom:(BOOL)allowZoom;
+- (void)setImage:(UIImage *)image animated:(BOOL)animated inSize:(CGSize)size allowZoom:(BOOL)allowZoom;
 
 @end
