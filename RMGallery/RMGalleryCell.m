@@ -95,10 +95,10 @@
 
 - (void)setImage:(UIImage *)image
 {
-    [self setImage:image inSize:image.size allowZoom:self.allowZoom];
+    [self setImage:image animated:NO inSize:image.size allowZoom:self.allowZoom];
 }
 
-- (void)setImage:(UIImage *)image inSize:(CGSize)imageSize allowZoom:(BOOL)allowZoom
+- (void)setImage:(UIImage *)image animated:(BOOL)animated inSize:(CGSize)size allowZoom:(BOOL)allowZoom;
 {
     _scrollView.minimumZoomScale = 1;
     _scrollView.zoomScale = 1;
@@ -109,12 +109,12 @@
         static const CGFloat MaxScale = 1.5;
         _scrollView.maximumZoomScale = MaxScale;
 
-        _imageView.frame = CGRectMake(0, 0, imageSize.width, imageSize.height);
+        _imageView.frame = CGRectMake(0, 0, size.width, size.height);
         _scrollView.contentSize = image.size;
         // Calculate Min
         const CGSize viewSize = _scrollView.bounds.size;
-        const CGFloat xScale = viewSize.width / imageSize.width;
-        const CGFloat yScale = viewSize.height / imageSize.height;
+        const CGFloat xScale = viewSize.width / size.width;
+        const CGFloat yScale = viewSize.height / size.height;
         const CGFloat minScale = MIN(xScale, yScale);
 
         _scrollView.minimumZoomScale = MIN(minScale, 1);
@@ -127,11 +127,14 @@
         _scrollView.minimumZoomScale = 1.0f;
     }
     _imageView.image = image;
-    _imageView.alpha = 0.0f;
-    [UIView animateWithDuration:0.25f
-                     animations:^{
-                         _imageView.alpha = 1.0f;
-                     }];
+
+    if (animated) {
+        _imageView.alpha = 0.0f;
+        [UIView animateWithDuration:0.25f
+                         animations:^{
+                             _imageView.alpha = 1.0f;
+                         }];
+    }
 
     _scrollView.zoomScale = _scrollView.minimumZoomScale;
     _scrollView.contentOffset = CGPointZero; // Will be centered

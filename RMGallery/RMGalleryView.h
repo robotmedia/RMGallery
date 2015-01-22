@@ -132,7 +132,7 @@
  @param index The gallery index whose image is required.
  @param completionBlock The block to be called when the image is ready. This allows to load the image asynchronously.
  */
-- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image))completionBlock;
+- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image, BOOL animated))completionBlock;
 
 /**
  Asks the data source for the number images (required).

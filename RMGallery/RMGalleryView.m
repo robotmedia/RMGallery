@@ -133,13 +133,13 @@ static NSString *const CellIdentifier = @"Cell";
     [cell.activityIndicatorView startAnimating];
     cell.imageContentMode = self.imageContentMode;
     __block BOOL sync = YES;
-    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image, BOOL animated) {
         // Check if cell was reused
         NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
         if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
-        [cell setImage:image inSize:image.size allowZoom:self.allowZoom];
+        [cell setImage:image animated:animated inSize:image.size allowZoom:self.allowZoom];
     }];
     sync = NO;
     return cell;
