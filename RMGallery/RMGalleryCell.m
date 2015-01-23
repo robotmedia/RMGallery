@@ -44,6 +44,7 @@
         _imageContentMode = UIViewContentModeScaleAspectFill;
 
         _scrollView = [[RMCenteringScrollView alloc] initWithFrame:self.bounds];
+        _scrollView.scrollsToTop = NO;
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;

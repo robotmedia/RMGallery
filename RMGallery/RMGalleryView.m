@@ -91,6 +91,8 @@ static NSString *const CellIdentifier = @"Cell";
 - (void)initHelper
 {
     _galleryIndex = 0;
+
+    self.scrollsToTop = NO;
     
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
