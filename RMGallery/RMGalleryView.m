@@ -91,6 +91,8 @@ static NSString *const CellIdentifier = @"Cell";
 - (void)initHelper
 {
     _galleryIndex = 0;
+
+    self.scrollsToTop = NO;
     
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
@@ -119,6 +121,18 @@ static NSString *const CellIdentifier = @"Cell";
     [super setDelegate:self];
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+
+    [self.collectionViewLayout invalidateLayout];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+
+    [self.collectionViewLayout invalidateLayout];
+}
+
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -131,14 +145,15 @@ static NSString *const CellIdentifier = @"Cell";
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
     [cell.activityIndicatorView startAnimating];
+    cell.imageContentMode = self.imageContentMode;
     __block BOOL sync = YES;
-    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image, BOOL animated) {
         // Check if cell was reused
         NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
         if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
-        cell.image = image;
+        [cell setImage:image animated:animated inSize:image.size allowZoom:self.allowZoom];
     }];
     sync = NO;
     return cell;
@@ -155,11 +170,19 @@ static NSString *const CellIdentifier = @"Cell";
 - (void)swipeLeftGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     [self showNext];
+    if ([self.galleryDelegate respondsToSelector:@selector(galleryViewDidSwipeLeft:)])
+    {
+        [self.galleryDelegate galleryViewDidSwipeLeft:self];
+    }
 }
 
 - (void)swipeRightGesture:(UIGestureRecognizer*)gestureRecognizer
 {
     [self showPrevious];
+    if ([self.galleryDelegate respondsToSelector:@selector(galleryViewDidSwipeRight:)])
+    {
+        [self.galleryDelegate galleryViewDidSwipeRight:self];
+    }
 }
 
 #pragma mark UICollectionViewDelegate (Paging)
@@ -223,6 +246,20 @@ static NSString *const CellIdentifier = @"Cell";
 }
 
 #pragma mark Managing state
+
+- (void)setAllowZoom:(BOOL)allowZoom {
+    if (_allowZoom == allowZoom)
+        return;
+    _allowZoom = allowZoom;
+    [self reloadData];
+}
+
+- (void)setImageContentMode:(UIViewContentMode)imageContentMode {
+    if (_imageContentMode == imageContentMode)
+        return;
+    _imageContentMode = imageContentMode;
+    [self reloadData];
+}
 
 - (NSUInteger)galleryIndex
 {

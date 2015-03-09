@@ -41,6 +41,11 @@
 @property (nonatomic, strong) UIImage *image;
 
 /**
+ Content mode of the image view.
+ */
+@property (nonatomic, assign) UIViewContentMode imageContentMode;
+
+/**
  Toggles zoom from the given point.
  @param point The point in which to toggle zoom.
  */
@@ -50,8 +55,9 @@
  Sets the given image as if it had the given size.
  @param image The image to set.
  @param size The size that will be used to calculate the minimum zoom scale.
+ @param allowZoom Whether or not to allow zooming.
  @discussion Use this method for placeholder thumbnails that are smaller than the final image.
  */
-- (void)setImage:(UIImage *)image inSize:(CGSize)size;
+- (void)setImage:(UIImage *)image animated:(BOOL)animated inSize:(CGSize)size allowZoom:(BOOL)allowZoom;
 
 @end

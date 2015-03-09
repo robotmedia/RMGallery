@@ -75,6 +75,17 @@
 @property (nonatomic, assign) NSUInteger galleryIndex;
 
 /**
+ Whether or not to permit zooming.
+ */
+@property (nonatomic, assign) BOOL allowZoom;
+
+/**
+ The content mode to apply to image cells.
+ @discussion This is by default UIViewContentModeScaleAspectFit, but is provided for customization.
+ */
+@property (nonatomic, assign) UIViewContentMode imageContentMode;
+
+/**
  Set the gallery index, optionally animating the transition.
  @param galleryIndex The index to be set.
  @param animated @c YES to animate the index change, @c NO otherwise.
@@ -121,7 +132,7 @@
  @param index The gallery index whose image is required.
  @param completionBlock The block to be called when the image is ready. This allows to load the image asynchronously.
  */
-- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image))completionBlock;
+- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image, BOOL animated))completionBlock;
 
 /**
  Asks the data source for the number images (required).
@@ -145,5 +156,17 @@
  @param index The index to which the gallery view changed.
  */
 - (void)galleryView:(RMGalleryView*)galleryView didChangeIndex:(NSUInteger)index;
+
+/**
+ Notifies the delegate that the gallery view gesture recognizer swiped left.
+ @param galleryView The gallery view.
+ */
+- (void)galleryViewDidSwipeLeft:(RMGalleryView*)galleryView;
+
+/**
+ Notifies the delegate that the gallery view gesture recognizer swiped right.
+ @param galleryView The gallery view.
+ */
+- (void)galleryViewDidSwipeRight:(RMGalleryView*)galleryView;
 
 @end

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'RMGallery'
-  s.version = '0.1'
+  s.version = '0.1.1'
   s.license = 'Apache 2.0'
   s.summary = 'A modular and lightweight gallery for iOS.'
   s.homepage = 'https://github.com/robotmedia/RMGallery'
