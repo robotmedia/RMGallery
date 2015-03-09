@@ -121,6 +121,18 @@ static NSString *const CellIdentifier = @"Cell";
     [super setDelegate:self];
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+
+    [self.collectionViewLayout invalidateLayout];
+}
+
+- (void)setBounds:(CGRect)bounds {
+    [super setBounds:bounds];
+
+    [self.collectionViewLayout invalidateLayout];
+}
+
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
