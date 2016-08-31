@@ -72,9 +72,9 @@
     [self.view addGestureRecognizer:_tapGestureRecognizer];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLayoutSubviews
 {
-    [super viewWillAppear:animated];
+    [super viewDidLayoutSubviews];
     if (!_initialGalleryIndexSet)
     {
         // In case the gallery index was set before the view was loaded
