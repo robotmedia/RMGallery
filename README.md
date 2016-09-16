@@ -1,5 +1,10 @@
 RMGallery
 =========
+Changes from (original library)[https://github.com/robotmedia/RMGallery]:
+* Displays (optional) text description alongside image at the bottom of screen
+* Fixes library for iOS10 (agressive pre-fetching of collection view cells)
+* iOS8 minimum target
+=========
 [![Version](https://cocoapod-badges.herokuapp.com/v/RMGallery/badge.png)](http://cocoadocs.org/docsets/RMGallery) [![Platform](https://cocoapod-badges.herokuapp.com/p/RMGallery/badge.png)](http://cocoadocs.org/docsets/RMGallery) [![Build Status](https://travis-ci.org/robotmedia/RMGallery.png)](https://travis-ci.org/robotmedia/RMGallery)
 
 A modular and lightweight gallery for iOS.
