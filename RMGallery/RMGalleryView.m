@@ -132,13 +132,14 @@ static NSString *const CellIdentifier = @"Cell";
 
     [cell.activityIndicatorView startAnimating];
     __block BOOL sync = YES;
-    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+    [self.galleryDataSource galleryView:self imageWithTextForIndex:indexPath.row completion:^(UIImage *image, NSString *description) {
         // Check if cell was reused
         NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
         if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
         
         [cell.activityIndicatorView stopAnimating];
         cell.image = image;
+        cell.textDescription = description;
     }];
     sync = NO;
     return cell;

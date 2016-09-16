@@ -115,13 +115,15 @@
  */
 @protocol RMGalleryViewDataSource<NSObject>
 
+
 /**
- Asks the data source for image that corresponds to the given index in the gallery view.
+ Asks the data source for image with text description that corresponds to the given index in the gallery view.
  @param galleryView The collection view requesting this information.
  @param index The gallery index whose image is required.
  @param completionBlock The block to be called when the image is ready. This allows to load the image asynchronously.
  */
-- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *image))completionBlock;
+- (void)galleryView:(RMGalleryView*)galleryView imageWithTextForIndex:(NSUInteger)index completion:(void (^)(UIImage *image, NSString*imageDescription))completionBlock;
+
 
 /**
  Asks the data source for the number images (required).
