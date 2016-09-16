@@ -129,19 +129,12 @@ static NSString *const CellIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-
     [cell.activityIndicatorView startAnimating];
-    __block BOOL sync = YES;
-    [self.galleryDataSource galleryView:self imageWithTextForIndex:indexPath.row completion:^(UIImage *image, NSString *description) {
-        // Check if cell was reused
-        NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
-        if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
-        
+    [self.galleryDataSource galleryView:self imageWithDescriptionForIndex:indexPath.row completion:^(UIImage *image, NSString *description) {
         [cell.activityIndicatorView stopAnimating];
         cell.image = image;
         cell.textDescription = description;
     }];
-    sync = NO;
     return cell;
 }
 

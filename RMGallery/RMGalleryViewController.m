@@ -72,6 +72,10 @@
     [self.view addGestureRecognizer:_tapGestureRecognizer];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
@@ -94,12 +98,13 @@
     _galleryView.scrollEnabled = YES;
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
     [_galleryView.collectionViewLayout invalidateLayout];
-    [self layoutToolbarForInterfaceOrientation:toInterfaceOrientation];
+    [self layoutToolbarForSize:size];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -153,17 +158,16 @@
 
 #pragma mark Toolbar
 
-- (void)layoutToolbarForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)layoutToolbarForSize:(CGSize)size
 {
     if (!_toolbar) return;
     
-    const BOOL landscape = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    const BOOL landscape = size.height < size.width;
     const BOOL isPhone = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
     static CGFloat ToolbarHeightDefault = 44;
     static CGFloat ToolbarHeightLandscapePhone = 32;
     const CGFloat height = landscape && isPhone ? ToolbarHeightLandscapePhone : ToolbarHeightDefault;
-    const CGRect bounds = self.view.bounds;
-    _toolbar.frame = CGRectMake(0, bounds.size.height - height, bounds.size.width, height);
+    _toolbar.frame = CGRectMake(0, size.height - height, size.width, height);
 }
 
 - (void)setupToolbar
@@ -171,7 +175,7 @@
     _toolbar = [UIToolbar new];
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:_toolbar];
-    [self layoutToolbarForInterfaceOrientation:self.interfaceOrientation];
+    [self layoutToolbarForSize:self.view.frame.size];
 }
 
 - (UIToolbar*)toolbar
