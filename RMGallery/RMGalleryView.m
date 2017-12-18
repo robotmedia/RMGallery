@@ -129,13 +129,15 @@ static NSString *const CellIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RMGalleryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-
+    NSInteger imageIndex = indexPath.row;
+    cell.tag = imageIndex; // mark the cell so we're sure it has not been reused when we fill it with the image
+    
     [cell.activityIndicatorView startAnimating];
+    
     __block BOOL sync = YES;
-    [self.galleryDataSource galleryView:self imageForIndex:indexPath.row completion:^(UIImage *image) {
+    [self.galleryDataSource galleryView:self imageForIndex:imageIndex completion:^(UIImage *image) {
         // Check if cell was reused
-        NSIndexPath *currentIndexPath = [self indexPathForCell:cell];
-        if (!sync && [indexPath compare:currentIndexPath] != NSOrderedSame) return;
+        if (!sync && cell.tag != imageIndex) return;
         
         [cell.activityIndicatorView stopAnimating];
         cell.image = image;
