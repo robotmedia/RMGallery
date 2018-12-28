@@ -87,24 +87,16 @@
     }
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
-                                duration:(NSTimeInterval)duration
-{
-    _galleryView.scrollEnabled = NO;
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromOrientation
-{
-    _galleryView.scrollEnabled = YES;
-}
-
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-    [_galleryView.collectionViewLayout invalidateLayout];
+    self.galleryView.scrollEnabled = NO;
+    [self.galleryView.collectionViewLayout invalidateLayout];
     [self layoutToolbarForSize:size];
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        self.galleryView.scrollEnabled = YES;
+    }];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -205,17 +197,14 @@
     {
         [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
     }
-    UINavigationController *navigationController = self.navigationController;
-    UINavigationBar *navigationBar = navigationController.navigationBar;
     const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
+    [self.navigationController setNavigationBarHidden:hidden animated:animated];
     [UIView animateWithDuration:duration animations:^{
         if (viewControllerBasedStatusBarAppearence)
         {
             [self setNeedsStatusBarAppearanceUpdate];
         }
-        navigationBar.alpha = hidden ? 0 : 1;
-        self.toolbar.alpha = hidden ? 0 : 1;
-        
+        self.toolbar.hidden = hidden;
         [self animatingBarsHidden:hidden];
     }];
 }
