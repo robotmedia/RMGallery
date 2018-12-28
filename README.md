@@ -2,6 +2,7 @@ RMGallery
 =========
 Changes from [original library](https://github.com/robotmedia/RMGallery):
 
+* Image label respects bottom safe area guide on iOS11/iOS12
 * Displays (optional) text description alongside image at the bottom of screen
 * Fixes library for iOS10 (agressive pre-fetching of collection view cells)
 * iOS8 minimum target
