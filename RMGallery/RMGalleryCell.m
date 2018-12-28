@@ -63,17 +63,22 @@
         _descriptionBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
         _descriptionBackground.backgroundColor = [UIColor blackColor];
         _descriptionBackground.alpha = 0.6;
-        NSDictionary *views = @{@"description" : _descriptionLabel, @"descriptionWithBackground" : _descriptionBackground};
-
-        [self.descriptionBackground addSubview:_descriptionLabel];
+        [_descriptionBackground addSubview:_descriptionLabel];
         _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *views = @{@"description" : _descriptionLabel, @"descriptionWithBackground" : _descriptionBackground};
         [_descriptionBackground addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[description]-10-|" options:0 metrics:nil views:views]];
         [_descriptionBackground addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[description]-4-|" options:0 metrics:nil views:views]];
-
+        
         [self.contentView addSubview:_descriptionBackground];
         _descriptionBackground.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[descriptionWithBackground]-0-|" options:0 metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]-0-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:views]];
+        if (@available(iOS 11.0, *)) {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]" options:0 metrics:nil views:views]];
+            [self.contentView addConstraint: [self.contentView.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:_descriptionBackground.bottomAnchor constant:0]];
+        }
+        else {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]-0-|" options:0 metrics:nil views:views]];
+        }
 
         _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
