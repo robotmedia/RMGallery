@@ -193,10 +193,6 @@
     
     const BOOL viewControllerBasedStatusBarAppearence = [self.class viewControllerBasedStatusBarAppearence];
     
-    if (!viewControllerBasedStatusBarAppearence)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
-    }
     const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
     [self.navigationController setNavigationBarHidden:hidden animated:animated];
     [UIView animateWithDuration:duration animations:^{
