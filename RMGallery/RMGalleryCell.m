@@ -122,7 +122,7 @@
 - (void) setTextDescription:(NSString *)text{
     _textDescription = text;
     self.descriptionLabel.text = text;
-    self.descriptionLabel.hidden = (!text || [text isEqualToString:@""]);
+    self.descriptionLabel.hidden = self.descriptionBackground.hidden = (!text || [text isEqualToString:@""]);
 }
 
 - (void)setImage:(UIImage *)image inSize:(CGSize)imageSize

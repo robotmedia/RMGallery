@@ -61,7 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    _galleryView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     _galleryView.frame = self.view.bounds;
     _galleryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_galleryView];
