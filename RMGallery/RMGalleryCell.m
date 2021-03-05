@@ -108,6 +108,7 @@
 
 - (void)prepareForReuse
 {
+    [super prepareForReuse];
     self.image = nil;
 }
 
