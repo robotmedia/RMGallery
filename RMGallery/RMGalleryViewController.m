@@ -61,7 +61,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    _galleryView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     _galleryView.frame = self.view.bounds;
     _galleryView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_galleryView];
@@ -72,9 +72,13 @@
     [self.view addGestureRecognizer:_tapGestureRecognizer];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
     if (!_initialGalleryIndexSet)
     {
         // In case the gallery index was set before the view was loaded
@@ -83,22 +87,15 @@
     }
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
-                                duration:(NSTimeInterval)duration
-{
-    _galleryView.scrollEnabled = NO;
-}
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromOrientation
-{
-    _galleryView.scrollEnabled = YES;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [_galleryView.collectionViewLayout invalidateLayout];
-    [self layoutToolbarForInterfaceOrientation:toInterfaceOrientation];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    self.galleryView.scrollEnabled = NO;
+    [self.galleryView.collectionViewLayout invalidateLayout];
+    [self layoutToolbarForSize:size];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        self.galleryView.scrollEnabled = YES;
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -153,17 +150,16 @@
 
 #pragma mark Toolbar
 
-- (void)layoutToolbarForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)layoutToolbarForSize:(CGSize)size
 {
     if (!_toolbar) return;
     
-    const BOOL landscape = UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    const BOOL landscape = size.height < size.width;
     const BOOL isPhone = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
     static CGFloat ToolbarHeightDefault = 44;
     static CGFloat ToolbarHeightLandscapePhone = 32;
     const CGFloat height = landscape && isPhone ? ToolbarHeightLandscapePhone : ToolbarHeightDefault;
-    const CGRect bounds = self.view.bounds;
-    _toolbar.frame = CGRectMake(0, bounds.size.height - height, bounds.size.width, height);
+    _toolbar.frame = CGRectMake(0, size.height - height, size.width, height);
 }
 
 - (void)setupToolbar
@@ -171,7 +167,7 @@
     _toolbar = [UIToolbar new];
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:_toolbar];
-    [self layoutToolbarForInterfaceOrientation:self.interfaceOrientation];
+    [self layoutToolbarForSize:self.view.frame.size];
 }
 
 - (UIToolbar*)toolbar
@@ -197,21 +193,14 @@
     
     const BOOL viewControllerBasedStatusBarAppearence = [self.class viewControllerBasedStatusBarAppearence];
     
-    if (!viewControllerBasedStatusBarAppearence)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
-    }
-    UINavigationController *navigationController = self.navigationController;
-    UINavigationBar *navigationBar = navigationController.navigationBar;
     const NSTimeInterval duration = animated ? UINavigationControllerHideShowBarDuration : 0;
+    [self.navigationController setNavigationBarHidden:hidden animated:animated];
     [UIView animateWithDuration:duration animations:^{
         if (viewControllerBasedStatusBarAppearence)
         {
             [self setNeedsStatusBarAppearanceUpdate];
         }
-        navigationBar.alpha = hidden ? 0 : 1;
-        self.toolbar.alpha = hidden ? 0 : 1;
-        
+        self.toolbar.hidden = hidden;
         [self animatingBarsHidden:hidden];
     }];
 }

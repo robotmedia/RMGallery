@@ -46,17 +46,19 @@
 
 #pragma mark RMGalleryViewDataSource
 
-- (void)galleryView:(RMGalleryView*)galleryView imageForIndex:(NSUInteger)index completion:(void (^)(UIImage *))completionBlock
+- (void)galleryView:(RMGalleryView*)galleryView imageWithDescriptionForIndex:(NSUInteger)index completion:(void (^)(UIImage *, NSString *))completionBlock
 {
     // Typically images will be loaded asynchonously. To simulate this we resize the image in background.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
         NSString *name = [NSString stringWithFormat:@"photo%ld.jpg", (long)index + 1];
         UIImage *image = [UIImage imageNamed:name];
         image = [image demo_imageByScalingByFactor:0.75];
-
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            completionBlock(image);
+        NSString *textForImage = [NSString stringWithFormat:@"Long text description for image number %ld", (long)index + 1];
+        for (int i = 0; i < index; i++) {
+            textForImage = [textForImage stringByAppendingString:@"\nstring that can be much longer and even then not long enough\n"];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(image, textForImage);
         });
     });
 }

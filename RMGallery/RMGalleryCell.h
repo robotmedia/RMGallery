@@ -41,6 +41,11 @@
 @property (nonatomic, strong) UIImage *image;
 
 /**
+ Image description.
+ */
+@property (nonatomic, strong) NSString *textDescription;
+
+/**
  Toggles zoom from the given point.
  @param point The point in which to toggle zoom.
  */

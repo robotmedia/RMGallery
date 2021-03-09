@@ -27,6 +27,8 @@
 @interface RMGalleryCell()<UIScrollViewDelegate>
 
 @property (nonatomic, readonly) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) UIView *descriptionBackground;
 
 @end
 
@@ -51,8 +53,34 @@
         _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _imageView.clipsToBounds = YES;
         [_scrollView addSubview:_imageView];
+
+        _descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bounds.size.height - 20, self.bounds.size.width - 20, 20)];
+        _descriptionLabel.numberOfLines = 0;
+        _descriptionLabel.textAlignment = NSTextAlignmentCenter;
+        _descriptionLabel.textColor = [UIColor whiteColor];
+        _descriptionLabel.font = [UIFont systemFontOfSize:16];
+        _descriptionLabel.backgroundColor = [UIColor clearColor];
+        _descriptionBackground = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
+        _descriptionBackground.backgroundColor = [UIColor blackColor];
+        _descriptionBackground.alpha = 0.6;
+        [_descriptionBackground addSubview:_descriptionLabel];
+        _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *views = @{@"description" : _descriptionLabel, @"descriptionWithBackground" : _descriptionBackground};
+        [_descriptionBackground addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[description]-10-|" options:0 metrics:nil views:views]];
+        [_descriptionBackground addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[description]-4-|" options:0 metrics:nil views:views]];
         
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [self.contentView addSubview:_descriptionBackground];
+        _descriptionBackground.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[descriptionWithBackground]-0-|" options:0 metrics:nil views:views]];
+        if (@available(iOS 11.0, *)) {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]" options:0 metrics:nil views:views]];
+            [self.contentView addConstraint: [self.contentView.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:_descriptionBackground.bottomAnchor constant:0]];
+        }
+        else {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]-0-|" options:0 metrics:nil views:views]];
+        }
+
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
         _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         _activityIndicatorView.hidesWhenStopped = YES;
         [self.contentView addSubview:_activityIndicatorView];
@@ -80,6 +108,7 @@
 
 - (void)prepareForReuse
 {
+    [super prepareForReuse];
     self.image = nil;
 }
 
@@ -88,6 +117,12 @@
 - (void)setImage:(UIImage *)image
 {
     [self setImage:image inSize:image.size];
+}
+
+- (void) setTextDescription:(NSString *)text{
+    _textDescription = text;
+    self.descriptionLabel.text = text;
+    self.descriptionLabel.hidden = self.descriptionBackground.hidden = (!text || [text isEqualToString:@""]);
 }
 
 - (void)setImage:(UIImage *)image inSize:(CGSize)imageSize

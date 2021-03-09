@@ -181,7 +181,7 @@ static CGRect RMCGRectAspectFit(CGSize sourceSize, CGSize size)
     const CGRect referenceRect = [self transitionRectForIndex:galleryIndex inView:toView];
     const CGRect transitionViewFinalFrame = [transitionContext.containerView convertRect:referenceRect fromView:toView];
     
-    UIView *coverView = coverView = [[UIView alloc] initWithFrame:referenceRect];
+    UIView *coverView = [[UIView alloc] initWithFrame:referenceRect];
     coverView.backgroundColor = [self coverColorForIndex:galleryIndex inView:toView];
     [toViewController.view addSubview:coverView];
 

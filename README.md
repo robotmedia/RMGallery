@@ -1,5 +1,14 @@
 RMGallery
 =========
+Changes from [original library](https://github.com/robotmedia/RMGallery):
+
+* Support for iOS11/iOS12
+* Displays (optional) text description alongside image at the bottom of screen
+* Fixes library for iOS10 (agressive pre-fetching of collection view cells)
+* iOS8 minimum target
+
+---
+
 [![Version](https://cocoapod-badges.herokuapp.com/v/RMGallery/badge.png)](http://cocoadocs.org/docsets/RMGallery) [![Platform](https://cocoapod-badges.herokuapp.com/p/RMGallery/badge.png)](http://cocoadocs.org/docsets/RMGallery) [![Build Status](https://travis-ci.org/robotmedia/RMGallery.png)](https://travis-ci.org/robotmedia/RMGallery)
 
 A modular and lightweight gallery for iOS.
@@ -8,7 +17,7 @@ A modular and lightweight gallery for iOS.
 
 RMGallery is a Photos-like gallery with no dependencies that can be used at view controller, view or cell level. It supports asynchronous image loading, view controller transitions, gestures and zooming.
 
-##Features
+## Features
 
 * Displays a slideshow of images like the Photos app.
 * Supports landscape and portrait orientations and handles rotations.
@@ -17,7 +26,7 @@ RMGallery is a Photos-like gallery with no dependencies that can be used at view
 * Provides view controller transitions.
 * Modular and extensible design.
 
-##Installation
+## Installation
 
 Using [CocoaPods](http://cocoapods.org/):
 
@@ -27,17 +36,17 @@ pod 'RMGallery', '~> 0.1'
 
 Alternatively, you can simply add the files from the [RMGallery](https://github.com/robotmedia/RMGallery/tree/master/RMGallery) directory to your project.
 
-##Classes
+## Classes
 
 RMGallery handles the boilerplate of a gallery UI so you can focus in theming and implementing your custom layout. RMGallery can be used at cell, view or view controller level, each one with its own corresponding class.
 
-###RMGalleryCell
+### RMGalleryCell
 
 [`RMGalleryCell`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryCell.h) is a collection view cell that displays an image with zoom and panning. It keeps the image centered when smaller than the cell and sets appropiate values for the zoom scale. Zoom can be toggled on and off at specific points.
 
 The cell also has its own activity indicator view, which is animated by `RMGalleryView` while it waits for the image.
 
-###RMGalleryView
+### RMGalleryView
 
 [`RMGalleryView`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryView.h)  is a collection view of gallery cells in a flow layout. It has a data source (`RMGalleryViewDataSource`) that is responsible for providing images and a delegate (`RMGalleryViewDelegate`) that is notified of index changes. 
 
@@ -49,25 +58,25 @@ Since `RMGalleryView` is a `UICollectionView` subclass, you also get all the ben
 
 To display a full-screen gallery it's best to use `RMGalleryViewController`. If you don't need full-screen, you can use `RMGalleryView` directly.
 
-###RMGalleryViewController
+### RMGalleryViewController
 
 [`RMGalleryViewController`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryViewController.h) is a view controller that manages a gallery view and, much like its counterparts `UITableViewController` and `UICollectionViewController`, is designed to be subclassed.
 
 The gallery view controller gracefully handles device rotation, toggles the visibility of the status bar, navigation bar and toolbar and notifies of its own dismissal.
 
-###RMGalleryTransition
+### RMGalleryTransition
 
 [`RMGalleryTransition`](https://github.com/robotmedia/RMGallery/blob/master/RMGallery/RMGalleryTransition.h) is a default view controller transition to go from a thumnail to the gallery view controller and back, as shown in the animation above. To use it you only need to to provide the position and image of the originating thumbnail (typically, an `UIImageView`).
 
-##Requirements
+## Requirements
 
 RMGallery requires iOS 7.0 or above and ARC.
 
-##Roadmap
+## Roadmap
 
 RMGallery is in initial development and its public API should not be considered stable.
 
-##License
+## License
 
  Copyright 2014 [Robot Media SL](http://www.robotmedia.net)
  
