@@ -80,7 +80,7 @@
             [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=250)-[descriptionWithBackground]-0-|" options:0 metrics:nil views:views]];
         }
 
-        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
         _activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         _activityIndicatorView.hidesWhenStopped = YES;
         [self.contentView addSubview:_activityIndicatorView];
